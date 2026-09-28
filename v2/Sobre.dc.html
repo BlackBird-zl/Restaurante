@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>A casa — Pátio do Ferro, Porto</title>
+  <meta name="description" content="Quem faz o Pátio do Ferro: a brasa, a sala e a horta. Uma casa de bairro no Porto desde 2019.">
+  <link rel="stylesheet" href="_ds/organic-87c28065-3c85-47a5-99de-ff79823d05ad/styles.css">
+  <script src="_ds/organic-87c28065-3c85-47a5-99de-ff79823d05ad/_ds_bundle.js"></script>
+  <script src="./image-slot.js"></script>
+  <script src="./patio-motion.js"></script>
+  <style>html{scroll-behavior:smooth}@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}body{margin:0;overflow-x:clip;text-wrap:pretty}a{color:var(--color-accent-700)}a:hover{color:var(--color-accent-600)}</style>
+</helmet>
+<dc-import name="SiteHeader" active="sobre" hint-size="100%,72px"></dc-import>
+<main>
+  <section aria-label="A casa" data-screen-label="Sobre · Abertura" style="max-width: 1440px; margin: 0 auto; padding: clamp(32px, 6vw, 96px) clamp(20px, 4vw, 56px) 0;">
+    <span style="display: block; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--color-accent-700); margin-bottom: 20px;">A casa · desde 2019</span>
+    <h1 data-reveal="rise" style="font-size: clamp(56px, 10vw, 168px); line-height: 0.88; letter-spacing: -0.04em; margin: 0 0 0 -0.04em; max-width: 10ch;">Uma casa que se foi fazendo.</h1>
+    <div style="display: flex; flex-wrap: wrap; gap: 32px clamp(32px, 6vw, 96px); align-items: flex-end; margin-top: clamp(40px, 6vw, 80px);">
+      <p style="flex: 1 1 260px; max-width: 340px; font-size: 16px; line-height: 1.7; margin: 0 0 12px; color: var(--color-neutral-800);">Era uma serralharia. Ficou o nome, as vigas e a porta de ferro que ainda range. O resto — seis mesas no início, trinta e oito agora — veio com os vizinhos.</p>
+      <div class="washed" style="flex: 3 1 520px; position: relative; overflow: hidden; height: clamp(320px, 50vw, 680px); border-radius: var(--radius-lg) calc(2 * var(--radius-lg)) var(--radius-lg) calc(8 * var(--radius-lg)); background: var(--color-surface);">
+        <div data-reveal="scale" style="position: absolute; inset: 0;">
+          <image-slot id="sobre-fachada" shape="rect" placeholder="Fachada de dia: porta de ferro verde-seco aberta, azulejo gasto, alguém a descarregar caixas de legumes."></image-slot>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Quem está cá" data-screen-label="Sobre · Pessoas" style="max-width: 1440px; margin: 0 auto; padding: clamp(96px, 12vw, 180px) clamp(20px, 4vw, 56px) 0;">
+    <h2 data-reveal="rise" style="font-size: clamp(36px, 4.6vw, 68px); line-height: 1; letter-spacing: -0.025em; margin: 0 0 clamp(40px, 6vw, 72px);">Três postos, uma mesa.</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 56px clamp(24px, 4vw, 64px); align-items: flex-start;">
+      <figure data-reveal="rise" style="margin: 0; flex: 1 1 260px; max-width: 380px;">
+        <div class="washed" style="position: relative; overflow: hidden; width: 100%; aspect-ratio: 1; border-radius: 50%; background: var(--color-accent-800);">
+          <image-slot id="sobre-rui" shape="rect" placeholder="Rui na grelha, de perfil, avental de linho sujo de carvão"></image-slot>
+        </div>
+        <figcaption style="margin-top: 20px; font-size: 15px; line-height: 1.6; color: var(--color-neutral-800);">
+          <span style="display: block; font-family: var(--font-heading); font-size: 26px; color: var(--color-text);">Rui Ferraz</span>
+          <span style="display: block; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--color-accent-700); margin: 4px 0 10px;">A brasa</span>
+          Aprendeu a grelhar com o avô, em Castro Daire. Acende o fogo às cinco e é o último a sair.
+        </figcaption>
+      </figure>
+      <figure data-reveal="rise" data-delay="150" style="margin: 0; flex: 1 1 220px; max-width: 320px; padding-top: clamp(0px, 8vw, 120px);">
+        <div class="washed" style="position: relative; overflow: hidden; width: 100%; aspect-ratio: 3 / 4; border-radius: 50% 50% var(--radius-lg) var(--radius-lg) / 38% 38% var(--radius-lg) var(--radius-lg); background: var(--color-accent-2-300);">
+          <image-slot id="sobre-marta" shape="rect" placeholder="Marta a servir vinho à mesa, mão no gargalo, cliente fora de foco"></image-slot>
+        </div>
+        <figcaption style="margin-top: 20px; font-size: 15px; line-height: 1.6; color: var(--color-neutral-800);">
+          <span style="display: block; font-family: var(--font-heading); font-size: 26px; color: var(--color-text);">Marta Seixas</span>
+          <span style="display: block; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--color-accent-700); margin: 4px 0 10px;">A sala e os vinhos</span>
+          Sabe o nome de metade da sala e o vinho preferido da outra metade.
+        </figcaption>
+      </figure>
+      <figure data-reveal="rise" data-delay="300" style="margin: 0; flex: 1 1 200px; max-width: 280px; padding-top: clamp(0px, 3vw, 40px);">
+        <div class="washed" style="position: relative; overflow: hidden; width: 100%; aspect-ratio: 1; border-radius: 50%; background: var(--color-accent-2-200);">
+          <image-slot id="sobre-graca" shape="rect" placeholder="Mãos de Dona Graça a segurar couves, terra nas unhas"></image-slot>
+        </div>
+        <figcaption style="margin-top: 20px; font-size: 15px; line-height: 1.6; color: var(--color-neutral-800);">
+          <span style="display: block; font-family: var(--font-heading); font-size: 26px; color: var(--color-text);">Dona Graça</span>
+          <span style="display: block; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--color-accent-700); margin: 4px 0 10px;">A horta, em Gondomar</span>
+          Manda o que está bom, não o que pedimos. Temos aprendido a cozinhar assim.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section aria-label="Citação" style="max-width: 1440px; margin: 0 auto; padding: clamp(96px, 12vw, 200px) clamp(20px, 4vw, 56px);">
+    <figure style="margin: 0 0 0 clamp(0px, 12vw, 220px);">
+      <blockquote data-reveal="rise" style="font-family: var(--font-heading); font-size: clamp(34px, 5.4vw, 88px); line-height: 1.04; letter-spacing: -0.03em; margin: 0; max-width: 15ch;">“Uma casa de bairro não se decora. Vai-se enchendo.”</blockquote>
+      <figcaption style="margin-top: 28px; font-size: 15px; color: var(--color-neutral-700);">— Marta Seixas</figcaption>
+    </figure>
+  </section>
+
+  <section aria-label="Como chegámos aqui" data-screen-label="Sobre · Anos" style="background: var(--color-accent-2-100); border-radius: calc(2 * var(--radius-lg)) calc(2 * var(--radius-lg)) 0 0;">
+    <div style="max-width: 1440px; margin: 0 auto; padding: clamp(64px, 9vw, 140px) clamp(20px, 4vw, 56px) clamp(80px, 10vw, 160px); display: flex; flex-wrap: wrap; gap: 48px clamp(32px, 6vw, 112px);">
+      <ol style="flex: 1 1 380px; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 36px; color: var(--color-accent-2-900);">
+        <li style="display: flex; gap: 24px; align-items: baseline;"><span style="font-family: var(--font-heading); font-size: clamp(36px, 4vw, 56px); line-height: 1; color: var(--color-accent-2-700); min-width: 3.2ch;">2019</span><span style="font-size: 16px; line-height: 1.6; max-width: 36ch;">Abrimos com seis mesas, uma grelha e um fogão emprestado.</span></li>
+        <li style="display: flex; gap: 24px; align-items: baseline;"><span style="font-family: var(--font-heading); font-size: clamp(36px, 4vw, 56px); line-height: 1; color: var(--color-accent-2-700); min-width: 3.2ch;">2021</span><span style="font-size: 16px; line-height: 1.6; max-width: 36ch;">O pátio das traseiras ganhou uma parreira e vinte lugares.</span></li>
+        <li style="display: flex; gap: 24px; align-items: baseline;"><span style="font-family: var(--font-heading); font-size: clamp(36px, 4vw, 56px); line-height: 1; color: var(--color-accent-2-700); min-width: 3.2ch;">2024</span><span style="font-size: 16px; line-height: 1.6; max-width: 36ch;">A antiga oficina virou garrafeira. Cento e vinte vinhos, quase todos do Norte.</span></li>
+      </ol>
+      <div style="flex: 1 1 320px; display: flex; gap: 16px; align-items: flex-start;">
+        <div class="washed" style="position: relative; overflow: hidden; flex: 1 1 60%; aspect-ratio: 3 / 4; border-radius: var(--radius-lg); background: var(--color-accent-2-300);">
+          <image-slot id="sobre-patio" shape="rect" placeholder="O pátio com a parreira, mesas de ferro, fim de tarde"></image-slot>
+        </div>
+        <div class="washed" style="position: relative; overflow: hidden; flex: 1 1 40%; aspect-ratio: 1; border-radius: 50%; margin-top: 30%; background: var(--color-accent-2-200);">
+          <image-slot id="sobre-porta" shape="rect" placeholder="Pormenor: fechadura da porta de ferro"></image-slot>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<dc-import name="SiteFooter" hint-size="100%,560px"></dc-import>
+</x-dc>
+</body>
+</html>

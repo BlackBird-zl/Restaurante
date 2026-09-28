@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Ambiente — Pátio do Ferro, Porto</title>
+  <meta name="description" content="A sala, o balcão da brasa, o pátio e a mesa comprida. Uma noite no Pátio do Ferro, das seis à meia-noite.">
+  <link rel="stylesheet" href="_ds/organic-87c28065-3c85-47a5-99de-ff79823d05ad/styles.css">
+  <script src="_ds/organic-87c28065-3c85-47a5-99de-ff79823d05ad/_ds_bundle.js"></script>
+  <script src="./image-slot.js"></script>
+  <script src="./patio-motion.js"></script>
+  <style>html{scroll-behavior:smooth}@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}body{margin:0;overflow-x:clip;text-wrap:pretty}a{color:var(--color-accent-700)}a:hover{color:var(--color-accent-600)}</style>
+</helmet>
+<dc-import name="SiteHeader" active="ambiente" hint-size="100%,72px"></dc-import>
+<main>
+  <section aria-label="Ambiente" data-screen-label="Ambiente · Abertura" style="max-width: 1440px; margin: 0 auto; padding: clamp(32px, 6vw, 96px) clamp(20px, 4vw, 56px) clamp(40px, 6vw, 80px); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 56px;">
+    <div>
+      <span style="display: block; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--color-accent-700); margin-bottom: 20px;">Ambiente</span>
+      <h1 data-reveal="rise" style="font-size: clamp(56px, 10vw, 168px); line-height: 0.88; letter-spacing: -0.04em; margin: 0 0 0 -0.04em; max-width: 9ch;">Das seis à meia-noite.</h1>
+    </div>
+    <p style="max-width: 320px; font-size: 16px; line-height: 1.7; margin: 0 0 10px; color: var(--color-neutral-800);">Uma noite no Pátio, fotografada durante o serviço. Ninguém posou.</p>
+  </section>
+
+  <section aria-label="Uma noite" data-screen-label="Ambiente · Noite" style="max-width: 1440px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); display: flex; flex-wrap: wrap; gap: clamp(40px, 6vw, 96px) clamp(20px, 3vw, 48px); align-items: flex-start;">
+    <sc-for list="{{ momentos }}" as="m" hint-placeholder-count="6">
+      <figure style="{{ m.fig }}">
+        <div class="washed" style="{{ m.frame }}">
+          <div data-reveal="scale" style="position: absolute; inset: 0;">
+            <image-slot id="{{ m.id }}" shape="rect" placeholder="{{ m.foto }}"></image-slot>
+          </div>
+        </div>
+        <figcaption style="display: flex; gap: 14px; align-items: baseline; margin-top: 14px; font-size: 15px; line-height: 1.5; color: var(--color-neutral-800);">
+          <span style="font-family: var(--font-heading); font-size: 20px; color: var(--color-text); flex: none;">{{ m.hora }}</span>
+          <span>{{ m.texto }}</span>
+        </figcaption>
+      </figure>
+    </sc-for>
+  </section>
+
+  <section aria-label="Onde sentar" data-screen-label="Ambiente · Espaços" style="max-width: 1440px; margin: 0 auto; padding: clamp(96px, 12vw, 200px) clamp(20px, 4vw, 56px) clamp(64px, 8vw, 120px);">
+    <h2 data-reveal="rise" style="font-size: clamp(40px, 6vw, 96px); line-height: 0.95; letter-spacing: -0.03em; margin: 0 0 clamp(32px, 4vw, 56px);">Onde sentar</h2>
+    <ul style="list-style: none; margin: 0; padding: 0;">
+      <sc-for list="{{ espacos }}" as="e" hint-placeholder-count="4">
+        <li style="border-top: 1px solid var(--color-divider);">
+          <a href="{{ e.href }}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px clamp(20px, 3vw, 48px); padding: clamp(20px, 2.6vw, 32px) 0; color: var(--color-text); text-decoration: none;" style-hover="color: var(--color-accent-700);">
+            <span class="washed" style="position: relative; overflow: hidden; flex: none; width: clamp(72px, 9vw, 128px); aspect-ratio: 1; border-radius: 50%; background: var(--color-surface);"><image-slot id="{{ e.id }}" shape="rect" placeholder="{{ e.nome }}"></image-slot></span>
+            <span style="flex: 1 1 260px; min-width: 0;">
+              <span style="display: block; font-family: var(--font-heading); font-size: clamp(28px, 3.6vw, 52px); line-height: 1.02; letter-spacing: -0.02em;">{{ e.nome }}</span>
+              <span style="display: block; font-size: 15px; line-height: 1.55; color: var(--color-neutral-700); margin-top: 6px; max-width: 48ch;">{{ e.nota }}</span>
+            </span>
+            <span style="flex: none; font-size: 14px; font-weight: 600; padding: 8px 16px; border-radius: 999px; background: var(--color-surface); color: var(--color-text);">{{ e.lugares }}</span>
+          </a>
+        </li>
+      </sc-for>
+    </ul>
+  </section>
+
+  <section aria-label="Pormenores da casa" style="max-width: 1440px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px) clamp(80px, 10vw, 160px);">
+    <div style="display: flex; flex-wrap: wrap; gap: 32px clamp(32px, 5vw, 80px); padding: clamp(32px, 4vw, 56px); border-radius: calc(2 * var(--radius-lg)); background: var(--color-surface);">
+      <div style="flex: 1 1 200px;"><span style="display: block; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--color-accent-700); margin-bottom: 8px;">Luz</span><span style="font-family: var(--font-heading); font-size: 22px; line-height: 1.2;">Velas e âmbar. Nada de teto branco.</span></div>
+      <div style="flex: 1 1 200px;"><span style="display: block; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--color-accent-700); margin-bottom: 8px;">Som</span><span style="font-family: var(--font-heading); font-size: 22px; line-height: 1.2;">Vinil, baixinho. Dá para ouvir quem está à frente.</span></div>
+      <div style="flex: 1 1 200px;"><span style="display: block; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--color-accent-700); margin-bottom: 8px;">Crianças e cães</span><span style="font-family: var(--font-heading); font-size: 22px; line-height: 1.2;">Bem-vindos. Os cães no pátio.</span></div>
+      <div style="flex: 1 1 200px;"><span style="display: block; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--color-accent-700); margin-bottom: 8px;">Acesso</span><span style="font-family: var(--font-heading); font-size: 22px; line-height: 1.2;">Piso térreo, sem degraus, casa de banho adaptada.</span></div>
+    </div>
+  </section>
+</main>
+<dc-import name="SiteFooter" hint-size="100%,560px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const m = [
+      ['18h40', 'Antes de abrir. Guardanapos dobrados, ninguém ainda.', 'Sala vazia, cadeiras alinhadas, luz de fim de tarde a entrar pela janela', { flex: '1 1 520px', maxWidth: 820 }, '16 / 10', 'var(--radius-lg)'],
+      ['19h05', 'A primeira mesa. Pedem sempre o pão.', 'Casal a sentar-se, casacos ainda nas costas das cadeiras', { flex: '1 1 260px', maxWidth: 380, marginTop: 'clamp(0px, 10vw, 160px)' }, '3 / 4', '50% 50% var(--radius-lg) var(--radius-lg) / 38% 38% var(--radius-lg) var(--radius-lg)'],
+      ['20h20', 'O balcão da brasa, cheio. Quem se senta aqui vê tudo.', 'Balcão com clientes de costas, cozinheiro de frente na grelha, fumo', { flex: '1 1 340px', maxWidth: 520, marginLeft: 'clamp(0px, 8vw, 140px)' }, '1', '50%'],
+      ['21h10', 'A mesa comprida. Um aniversário que ninguém anunciou.', 'Mesa comprida com doze pessoas, garrafas a meio, alguém a rir de olhos fechados', { flex: '2 1 560px', maxWidth: 900 }, '16 / 9', 'calc(2 * var(--radius-lg))'],
+      ['22h45', 'O pátio, com a parreira e a última garrafa.', 'Pátio à noite, luzes pequenas penduradas, dois copos numa mesa de ferro', { flex: '1 1 300px', maxWidth: 440, marginTop: 'clamp(0px, 6vw, 96px)' }, '4 / 5', 'var(--radius-lg)'],
+      ['23h50', 'A loiça a secar. Amanhã, às cinco, acende-se outra vez.', 'Pratos de barro a escorrer, pano de linho, cozinha já apagada', { flex: '1 1 300px', maxWidth: 480, marginLeft: 'auto' }, '1', '50%']
+    ].map(([hora, texto, foto, fig, ratio, radius], i) => ({
+      id: 'amb-' + i, hora, texto, foto,
+      fig: Object.assign({ margin: 0, minWidth: 0 }, fig),
+      frame: { position: 'relative', overflow: 'hidden', width: '100%', aspectRatio: ratio, borderRadius: radius, background: i % 2 ? 'var(--color-accent-2-200)' : 'var(--color-surface)' }
+    }));
+    const espacos = [
+      ['A sala', 'Mesas de castanho, paredes de cal, a janela para a rua.', '38 lugares', 'sala'],
+      ['O balcão da brasa', 'Oito bancos de frente para o fogo. Para quem vem a dois — ou sozinho.', '8 lugares', 'balcao'],
+      ['O pátio', 'Parreira, mesas de ferro e mantas quando arrefece. De maio a outubro.', '20 lugares', 'patio'],
+      ['A mesa comprida', 'Uma só mesa de carvalho, reservável inteira, com menu da brasa para partilhar.', 'Até 14', 'comprida']
+    ].map(([nome, nota, lugares, k]) => ({ nome, nota, lugares, id: 'amb-esp-' + k, href: 'Reservas.dc.html?e=' + k }));
+    return { momentos: m, espacos };
+  }
+}
+</script>
+</body>
+</html>

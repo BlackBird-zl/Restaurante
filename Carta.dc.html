@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Carta — Pátio do Ferro, Porto</title>
+  <meta name="description" content="A carta do Pátio do Ferro: para começar, da brasa, do mar, da horta, para ficar e copos. Preços com porção e unidade.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;display=swap">
+  <script src="./image-slot.js"></script>
+  <script src="./carta-data.js"></script>
+  <script src="./patio-media.js"></script>
+  <style>html{scroll-behavior:smooth}body{margin:0;background:#F1F2EE;color:#252B29;font-family:'Archivo',system-ui,sans-serif;font-size:16px;line-height:24px;text-wrap:pretty;overflow-x:clip}*,*::before,*::after{box-sizing:border-box}a{color:#252B29;text-underline-offset:4px}a:hover{color:#59635E}:focus-visible{outline:2px solid #252B29;outline-offset:3px}@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}</style>
+</helmet>
+<dc-import name="SiteHeader" active="carta" hint-size="100%,64px"></dc-import>
+<main style="max-width: 1248px; margin: 0 auto; padding: 0 clamp(16px, 5vw, 48px);">
+  <section aria-labelledby="h-carta" data-screen-label="Carta · Cabeçalho" style="padding: clamp(32px, 5vw, 48px) 0 0;">
+    <h1 id="h-carta" style="margin: 0; font-size: clamp(32px, 4.7vw, 48px); line-height: 1.08; font-weight: 500; font-stretch: 85%; letter-spacing: -0.02em;">Carta</h1>
+    <p style="margin: 8px 0 0; font-size: 18px; line-height: 28px; color: #59635E; max-width: 60ch;">Pratos para o centro da mesa. Alergias: confirme com a equipa antes de pedir.</p>
+    <div aria-hidden="true" style="display: flex; gap: clamp(16px, 4vw, 32px); margin: 24px 0 0;">
+      <span style="flex: 0 0 calc(62.5% - clamp(8px, 2vw, 16px)); height: 2px; background: #252B29;"></span>
+      <span style="flex: 1 1 auto; height: 2px; background: #252B29;"></span>
+    </div>
+  </section>
+
+  <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+    <div style="position: sticky; top: 64px; z-index: 20; background: #F1F2EE; border-bottom: 1px solid #B7BEB8; margin: 0 calc(-1 * clamp(16px, 5vw, 48px)); padding: 4px clamp(16px, 5vw, 48px);">
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button type="button" aria-expanded="{{ capsOpenStr }}" aria-controls="lista-capitulos" onClick="{{ toggleCaps }}" style="flex: 1 1 auto; min-width: 0; min-height: 48px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 12px; background: transparent; border: 1px solid #59635E; border-radius: 2px; font: inherit; color: #252B29; cursor: pointer; text-align: left;">
+          <span style="font-weight: 600;">Capítulos</span>
+          <span style="color: #59635E; overflow: hidden; text-overflow: clip; white-space: nowrap;">{{ activeNome }}</span>
+        </button>
+        <button type="button" aria-pressed="{{ vegStr }}" onClick="{{ toggleVeg }}" style="{{ vegStyle }}">Sem carne nem peixe</button>
+      </div>
+      <sc-if value="{{ capsOpen }}" hint-placeholder-val="{{ false }}">
+        <ul id="lista-capitulos" style="list-style: none; margin: 4px 0 4px; padding: 0;">
+          <sc-for list="{{ chips }}" as="c" hint-placeholder-count="6">
+            <li><a href="{{ c.href }}" aria-current="{{ c.current }}" onClick="{{ c.go }}" style="{{ c.mStyle }}"><span style="font-size: 14px; color: #59635E; font-variant-numeric: tabular-nums; min-width: 24px;">{{ c.num }}</span>{{ c.nome }}</a></li>
+          </sc-for>
+        </ul>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <div style="{{ layoutStyle }}">
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Capítulos da carta" style="position: sticky; top: 88px; align-self: start; display: flex; flex-direction: column; gap: 16px;">
+        <ul style="list-style: none; margin: 0; padding: 0;">
+          <sc-for list="{{ chips }}" as="c" hint-placeholder-count="6">
+            <li><a href="{{ c.href }}" aria-current="{{ c.current }}" style="{{ c.dStyle }}"><span style="font-size: 14px; color: #59635E; font-variant-numeric: tabular-nums; min-width: 24px;">{{ c.num }}</span>{{ c.nome }}</a></li>
+          </sc-for>
+        </ul>
+        <button type="button" aria-pressed="{{ vegStr }}" onClick="{{ toggleVeg }}" style="{{ vegStyle }}">Sem carne nem peixe</button>
+      </nav>
+    </sc-if>
+
+    <div style="min-width: 0;">
+      <sc-if value="{{ veg }}" hint-placeholder-val="{{ false }}">
+        <p role="status" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; margin: 0 0 8px; padding-top: 24px; font-size: 16px;">
+          <span><strong style="font-weight: 600;">Filtro ativo:</strong> sem carne nem peixe · {{ count }} pratos</span>
+          <button type="button" onClick="{{ toggleVeg }}" style="min-height: 48px; padding: 0; background: transparent; border: 0; font: inherit; font-weight: 600; color: #252B29; text-decoration: underline; text-underline-offset: 4px; cursor: pointer;">Limpar filtro</button>
+        </p>
+      </sc-if>
+      <sc-for list="{{ caps }}" as="c" hint-placeholder-count="3">
+        <section id="{{ c.id }}" aria-labelledby="{{ c.hid }}" data-screen-label="{{ c.label }}" style="{{ c.secStyle }}">
+          <h2 id="{{ c.hid }}" style="display: flex; align-items: baseline; gap: 12px; margin: 0; font-size: clamp(25px, 2.8vw, 28px); line-height: 1.15; font-weight: 600; font-stretch: 95%;"><span style="font-size: 14px; line-height: 20px; font-weight: 500; color: #59635E; font-variant-numeric: tabular-nums;">{{ c.num }}</span>{{ c.nome }}</h2>
+          <p style="margin: 4px 0 0; font-size: 16px; line-height: 24px; color: #59635E;">{{ c.intro }}</p>
+          <ul style="list-style: none; margin: 16px 0 0; padding: 0; border-top: 1px solid #B7BEB8;">
+            <sc-for list="{{ c.itens }}" as="it" hint-placeholder-count="4">
+              <li style="border-bottom: 1px solid #B7BEB8;">
+                <a href="{{ it.href }}" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding: 16px 0; text-decoration: none;" style-hover="text-decoration: underline;">
+                  <span style="flex: 1 1 220px; min-width: 0;">
+                    <span style="display: block; font-size: 19px; line-height: 25px; font-weight: 600;">{{ it.nome }}</span>
+                    <span style="display: block; font-size: 16px; line-height: 24px; color: #59635E; margin-top: 2px;">{{ it.desc }}</span>
+                    <sc-if value="{{ it.hasDiet }}" hint-placeholder-val="{{ false }}">
+                      <span style="display: block; font-size: 13px; line-height: 19px; font-weight: 500; color: #59635E; margin-top: 4px;">{{ it.diet }}</span>
+                    </sc-if>
+                  </span>
+                  <span style="flex: 0 1 auto; text-align: right; font-size: 16px; line-height: 24px; font-weight: 500; font-variant-numeric: tabular-nums;">
+                    <span style="display: block;">{{ it.preco }}</span>
+                    <sc-if value="{{ it.hasPorcao }}" hint-placeholder-val="{{ false }}">
+                      <span style="display: block; color: #59635E;">{{ it.porcao }}</span>
+                    </sc-if>
+                  </span>
+                </a>
+              </li>
+            </sc-for>
+          </ul>
+          <sc-if value="{{ c.hasNota }}" hint-placeholder-val="{{ false }}">
+            <p style="margin: 12px 0 0; font-size: 16px; line-height: 24px; color: #59635E;">{{ c.nota }}</p>
+          </sc-if>
+        </section>
+      </sc-for>
+
+      <section aria-label="Ao centro da mesa" style="padding: clamp(40px, 6vw, 64px) 0 clamp(40px, 6vw, 64px);">
+        <figure style="margin: 0; max-width: 800px;">
+          <div style="position: relative; width: 100%; aspect-ratio: 4 / 3; background: #FFFFFF;">
+            <image-slot id="media-T03" src="./assets/media/T03.webp" shape="rect" placeholder="T03 · Centro — travessa ao centro" role="img" aria-label="A mesa com uma travessa para partilhar ao centro."></image-slot>
+          </div>
+          <figcaption style="margin-top: 8px; font-size: 13px; line-height: 19px; font-weight: 500; color: #59635E;">A costeleta para dois, ao centro da mesa.</figcaption>
+        </figure>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-top: 24px;">
+          <a href="Reservas.dc.html" style="display: inline-flex; align-items: center; min-height: 48px; padding: 12px 20px; background: #252B29; color: #FFFFFF; border-radius: 2px; font-weight: 600; text-decoration: none; transition: background-color 120ms;" style-hover="background: #59635E; color: #FFFFFF;">Pedir reserva</a>
+          <span style="font-size: 16px; color: #59635E;">Preços em euros, IVA incluído.</span>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+<dc-import name="SiteFooter" bar="carta" hint-size="100%,240px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { ready: !!window.PATIO, veg: false, active: 'comecar', w: window.innerWidth, capsOpen: false };
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    const wait = () => window.PATIO ? this.setState({ ready: true }) : setTimeout(wait, 40);
+    wait();
+    this.onS = () => {
+      if (!window.PATIO) return;
+      let cur = window.PATIO.carta[0].id;
+      for (const c of window.PATIO.carta) { const el = document.getElementById(c.id); if (el && el.getBoundingClientRect().top < 180) cur = c.id; }
+      if (cur !== this.state.active) this.setState({ active: cur });
+    };
+    window.addEventListener('scroll', this.onS, { passive: true });
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this.onS); window.removeEventListener('resize', this.onR); }
+  renderVals() {
+    const P = window.PATIO;
+    const wide = this.state.w >= 1024;
+    const layoutStyle = { display: 'grid', gridTemplateColumns: wide ? '200px minmax(0, 1fr)' : 'minmax(0, 1fr)', gap: wide ? 48 : 0, paddingTop: wide ? 24 : 0 };
+    const veg = this.state.veg;
+    const vegStyle = { flex: 'none', minHeight: 48, padding: '0 12px', background: veg ? '#252B29' : 'transparent', color: veg ? '#FFFFFF' : '#252B29',
+      border: '1px solid #252B29', borderRadius: 2, font: 'inherit', fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'background-color 120ms, color 120ms', textAlign: 'left' };
+    const base = { wide, narrow: !wide, layoutStyle, veg, vegStr: veg ? 'true' : 'false', vegStyle,
+      toggleVeg: () => this.setState({ veg: !veg }), capsOpen: this.state.capsOpen, capsOpenStr: this.state.capsOpen ? 'true' : 'false',
+      toggleCaps: () => this.setState({ capsOpen: !this.state.capsOpen }) };
+    if (!this.state.ready || !P) return Object.assign(base, { chips: [], caps: [], activeNome: '', count: 0 });
+    const caps = P.carta.map(c => ({ c, itens: c.itens.filter(it => !veg || P.semCarneNemPeixe(it)) })).filter(x => x.itens.length > 0);
+    const activeCap = caps.find(x => x.c.id === this.state.active) || caps[0];
+    const chips = caps.map(({ c }) => {
+      const on = activeCap && activeCap.c.id === c.id;
+      const s = { display: 'flex', alignItems: 'center', gap: 8, minHeight: 48, textDecoration: on ? 'underline' : 'none', textDecorationThickness: 2, textUnderlineOffset: 6, fontWeight: on ? 600 : 500 };
+      return { href: '#' + c.id, num: c.num, nome: c.nome, current: on ? 'location' : undefined, dStyle: s, mStyle: Object.assign({}, s, { borderTop: '1px solid #B7BEB8' }),
+        go: () => this.setState({ capsOpen: false }) };
+    });
+    const dietLabel = it => it.tags.includes('vegan') ? 'Vegan' : it.tags.includes('vegetariano') ? 'Vegetariano' : '';
+    return Object.assign(base, {
+      chips, activeNome: activeCap ? activeCap.c.nome : '',
+      count: caps.reduce((n, x) => n + x.itens.length, 0),
+      caps: caps.map(({ c, itens }) => ({
+        id: c.id, hid: 'h-' + c.id, label: 'Carta · ' + c.nome, num: c.num, nome: c.nome, intro: c.intro,
+        hasNota: !!c.nota && !veg, nota: c.nota,
+        secStyle: { paddingTop: wide ? 24 : 32, paddingBottom: wide ? 24 : 0, scrollMarginTop: wide ? 88 : 136 },
+        itens: itens.map(it => ({ nome: it.nome, desc: it.desc, preco: P.preco(it), href: 'Produto.dc.html?p=' + it.slug,
+          hasPorcao: !!it.porcao, porcao: it.porcao, hasDiet: !!dietLabel(it), diet: dietLabel(it) }))
+      }))
+    });
+  }
+}
+</script>
+</body>
+</html>

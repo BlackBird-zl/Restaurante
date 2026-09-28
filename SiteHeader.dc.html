@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;display=swap">
+  <style>body{margin:0;background:#F1F2EE;color:#252B29;font-family:'Archivo',system-ui,sans-serif;font-size:16px;line-height:24px;text-wrap:pretty;overflow-x:clip}*,*::before,*::after{box-sizing:border-box}a{color:#252B29;text-underline-offset:4px}a:hover{color:#59635E}:focus-visible{outline:2px solid #252B29;outline-offset:3px}@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}</style>
+</helmet>
+<header onKeyDown="{{ onKey }}" style="position: sticky; top: 0; z-index: 50; background: #F1F2EE; border-bottom: 1px solid #B7BEB8;">
+  <div style="max-width: 1248px; height: 64px; margin: 0 auto; display: flex; align-items: center; gap: 4px; padding: 0 clamp(16px, 5vw, 48px);">
+    <a href="Home.dc.html" aria-label="Pátio do Ferro" style="margin-right: auto; display: flex; align-items: center; min-height: 48px; font-size: 18px; font-weight: 600; font-stretch: 85%; letter-spacing: -0.01em; text-decoration: none; color: #252B29; white-space: nowrap;">{{ brand }}</a>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Principal" style="display: flex; align-items: center; gap: 4px;">
+        <sc-for list="{{ links }}" as="l" hint-placeholder-count="4">
+          <a href="{{ l.href }}" aria-current="{{ l.current }}" style="{{ l.style }}">{{ l.label }}</a>
+        </sc-for>
+        <a href="Reservas.dc.html" aria-current="{{ resCurrent }}" style="display: inline-flex; align-items: center; min-height: 48px; padding: 12px 20px; margin-left: 12px; background: #252B29; color: #FFFFFF; border-radius: 2px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: background-color 120ms;" style-hover="background: #59635E; color: #FFFFFF;">Reservas</a>
+      </nav>
+    </sc-if>
+    <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+      <a href="Carta.dc.html" aria-current="{{ cartaCurrent }}" style="{{ cartaStyle }}">Carta</a>
+      <a href="Reservas.dc.html" aria-current="{{ resCurrent }}" style="display: inline-flex; align-items: center; min-height: 48px; padding: 12px; background: #252B29; color: #FFFFFF; border-radius: 2px; font-weight: 600; text-decoration: none; white-space: nowrap;">Reservas</a>
+      <button type="button" ref="{{ btnRef }}" aria-expanded="{{ openStr }}" aria-controls="menu-principal" onClick="{{ toggle }}" style="min-width: 52px; min-height: 48px; padding: 0 4px; margin-left: 4px; background: transparent; border: 1px solid #59635E; border-radius: 2px; font: inherit; font-weight: 600; color: #252B29; cursor: pointer;">{{ menuLabel }}</button>
+    </sc-if>
+  </div>
+  <sc-if value="{{ showMenu }}" hint-placeholder-val="{{ false }}">
+    <nav id="menu-principal" aria-label="Menu" ref="{{ menuRef }}" style="{{ menuStyle }}">
+      <ul style="list-style: none; margin: 0; padding: 8px 0 0;">
+        <sc-for list="{{ menuLinks }}" as="l" hint-placeholder-count="6">
+          <li style="border-bottom: 1px solid #B7BEB8;">
+            <a href="{{ l.href }}" aria-current="{{ l.current }}" style="display: flex; align-items: center; min-height: 56px; font-size: 20px; line-height: 28px; font-weight: 500; text-decoration: none; color: #252B29;">{{ l.label }}</a>
+          </li>
+        </sc-for>
+      </ul>
+    </nav>
+  </sc-if>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;64px&quot;},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;carta&quot;,&quot;sobre&quot;,&quot;ambiente&quot;,&quot;reservas&quot;,&quot;contactos&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { open: false, entered: false, w: window.innerWidth };
+  btnRef = React.createRef();
+  menuRef = React.createRef();
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth }, () => { if (this.state.w >= 900 && this.state.open) this.close(false); });
+    window.addEventListener('resize', this.onR);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onR); document.body.style.overflow = ''; }
+  open() {
+    document.body.style.overflow = 'hidden';
+    this.setState({ open: true, entered: false }, () => {
+      requestAnimationFrame(() => this.setState({ entered: true }));
+      const a = this.menuRef.current && this.menuRef.current.querySelector('a');
+      if (a) a.focus();
+    });
+  }
+  close(returnFocus = true) {
+    document.body.style.overflow = '';
+    this.setState({ open: false, entered: false }, () => { if (returnFocus && this.btnRef.current) this.btnRef.current.focus(); });
+  }
+  renderVals() {
+    const active = this.props.active ?? 'home';
+    const mkStyle = cur => ({ display: 'inline-flex', alignItems: 'center', minHeight: 48, padding: '0 12px', fontSize: 16, fontWeight: cur ? 600 : 500,
+      color: '#252B29', textDecoration: cur ? 'underline' : 'none', textDecorationThickness: 2, textUnderlineOffset: 6, whiteSpace: 'nowrap' });
+    const base = [['carta', 'Carta', 'Carta.dc.html'], ['ambiente', 'Ambiente', 'Ambiente.dc.html'], ['sobre', 'Sobre', 'Sobre.dc.html'], ['contactos', 'Contactos', 'Contactos.dc.html']];
+    const mk = ([id, label, href]) => ({ label, href, current: id === active ? 'page' : undefined, style: mkStyle(id === active) });
+    const wide = this.state.w >= 900;
+    const onKey = e => {
+      if (!this.state.open) return;
+      if (e.key === 'Escape') { e.preventDefault(); this.close(); return; }
+      if (e.key === 'Tab' && this.menuRef.current) {
+        const items = [this.btnRef.current, ...this.menuRef.current.querySelectorAll('a')].filter(Boolean);
+        const i = items.indexOf(document.activeElement);
+        if (e.shiftKey && i === 0) { e.preventDefault(); items[items.length - 1].focus(); }
+        else if (!e.shiftKey && i === items.length - 1) { e.preventDefault(); items[0].focus(); }
+      }
+    };
+    const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return {
+      brand: wide || this.state.w >= 420 ? 'Pátio do Ferro' : 'Pátio',
+      wide, narrow: !wide, links: base.map(mk),
+      resCurrent: active === 'reservas' ? 'page' : undefined,
+      cartaCurrent: active === 'carta' ? 'page' : undefined,
+      cartaStyle: mkStyle(active === 'carta'),
+      menuLinks: [['home', 'Início', 'Home.dc.html'], ...base, ['reservas', 'Reservas', 'Reservas.dc.html']].map(mk),
+      openStr: this.state.open ? 'true' : 'false',
+      menuLabel: this.state.open ? 'Fechar' : 'Menu',
+      toggle: () => (this.state.open ? this.close() : this.open()),
+      showMenu: this.state.open && !wide,
+      menuStyle: { position: 'fixed', top: 64, left: 0, right: 0, bottom: 0, zIndex: 60, background: '#F1F2EE', padding: '0 clamp(16px, 5vw, 48px) 32px', overflowY: 'auto',
+        opacity: reduce || this.state.entered ? 1 : 0, transform: reduce || this.state.entered ? 'none' : 'translateY(-4px)', transition: 'opacity 160ms ease-out, transform 160ms ease-out' },
+      btnRef: this.btnRef, menuRef: this.menuRef, onKey
+    };
+  }
+}
+</script>
+</body>
+</html>

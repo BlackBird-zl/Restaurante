@@ -1,48 +1,57 @@
-# Restaurant OS — template local
+# Pátio do Ferro — V3 final
 
-Template multi-page de restaurante, preparado para demonstração e personalização **sem Supabase, base de dados ou variáveis de ambiente obrigatórias**.
+## Conceito
+**A mesma mesa, a noite inteira.**  
+A interface mantém-se estável enquanto a mesa, a luz e os vestígios do serviço mudam.
 
-## Executar
+## Abrir
+O pacote é autocontido para o protótipo público. Sirva a pasta por HTTP (não abra diretamente por `file://`, porque os componentes carregam ficheiros relativos).
 
-Requisitos: Node 22.x e pnpm 10.
+Exemplo:
 
 ```bash
-pnpm install
-pnpm dev
+python -m http.server 8080
 ```
 
-Abra `http://localhost:3000`.
+Depois abra:
 
-## Deploy Vercel
+- `Home.dc.html`
+- `Carta.dc.html`
+- `Produto.dc.html?p=polvo-na-brasa`
+- `Ambiente.dc.html`
+- `Reservas.dc.html`
+- `Sobre.dc.html`
+- `Contactos.dc.html`
 
-Importe o repositório na Vercel e faça deploy. Não é necessário criar projeto Supabase nem configurar chaves para o site público.
+## Media
+Os 17 assets finais estão em `assets/media/`:
 
-A URL raiz mostra **Pátio do Ferro**. O segundo preset pode ser visto em:
+- T01–T05 — sequência da mesma mesa;
+- S01–S03 — mesma sala em três momentos;
+- P01–P05 — cinco produtos;
+- B01 — bebida;
+- G01 — serviço;
+- M01 — detalhe da junta;
+- E01 — limiar/ambiente.
 
-- `/demo/balcao-do-largo`
-- `/d/balcao-do-largo` (compatibilidade com a antiga preview)
+Todos são WebP 4:3 locais. `patio-media.js` é a fonte de verdade dos caminhos e alt text.
 
-## O que funciona sem backend
+## Regras visuais aplicadas
+- imagens retangulares, sem máscaras orgânicas;
+- canvas mineral `#F1F2EE`;
+- tinta `#252B29`;
+- brasa apenas como sinal `#A13827`;
+- régua/junta a 62,5%;
+- nenhuma imagem depende de texto embutido;
+- sem autoplay, parallax, WebGL ou animação narrativa;
+- Carta e Reservas permanecem acessíveis sem atravessar a sequência da Home;
+- `prefers-reduced-motion` é respeitado.
 
-- Home editorial
-- Carta, categorias e fichas de produto
-- Sobre, ambiente, contactos e privacidade
-- Formulário de reserva em modo demonstração (não persiste nem envia dados)
-- Contexto de mesa em modo consulta/read-only
-- Dois restaurantes/presets com dados locais isolados
-- 32 slots de fotografia preenchidos com fotografia real licenciada (Pexels)
+## Limites intencionais
+- restaurante, contactos e morada são fictícios;
+- reserva é demonstração e não envia dados;
+- áudio opcional de Ambiente não foi incluído porque a especificação proíbe simular uma gravação real;
+- a V2 permanece arquivada em `v2/`.
 
-## O que foi deliberadamente desacoplado
-
-Auth, persistência transacional, realtime, RLS/RPCs, KDS operacional e backoffice persistente pertencem à versão com backend. O código histórico de backend permanece no repositório como referência de evolução, mas **não é necessário para abrir, navegar ou publicar o template público**.
-
-## Dados
-
-Os conteúdos ficam em:
-
-- `fixtures/patio-do-ferro/data.ts`
-- `fixtures/balcao-do-largo/data.ts`
-- `fixtures/patio-do-ferro/visual-assets.ts`
-- `src/data/local-template.ts`
-
-Isso permite trocar marca, carta, preços, horários e conteúdo sem depender de um serviço externo.
+## Origem de direção
+A implementação segue `uploads/PATIO_DO_FERRO_DIRECAO_CRIATIVA_V3_Claude.md` e a Biblioteca Visual V2.1 usada como metodologia de fotografia: BASE + CENA/LUZ + CÂMARA + ACABAMENTO + SAÍDA/RESTRIÇÕES.

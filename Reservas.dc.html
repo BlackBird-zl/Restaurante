@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Reservas — Pátio do Ferro, Porto</title>
+  <meta name="description" content="Peça uma reserva no Pátio do Ferro: pessoas, data, hora e preferência de lugar.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;display=swap">
+  <script src="./image-slot.js"></script>
+  <script src="./carta-data.js"></script>
+  <style>body{margin:0;background:#F1F2EE;color:#252B29;font-family:'Archivo',system-ui,sans-serif;font-size:16px;line-height:24px;text-wrap:pretty;overflow-x:clip}*,*::before,*::after{box-sizing:border-box}a{color:#252B29;text-underline-offset:4px}a:hover{color:#59635E}:focus-visible{outline:2px solid #252B29;outline-offset:3px}@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}</style>
+</helmet>
+<dc-import name="SiteHeader" active="reservas" hint-size="100%,64px"></dc-import>
+<main style="max-width: 1248px; margin: 0 auto; padding: 0 clamp(16px, 5vw, 48px) clamp(40px, 6vw, 64px);">
+  <div style="{{ layoutStyle }}">
+    <header style="grid-area: intro; padding-top: clamp(32px, 5vw, 48px);">
+      <h1 style="margin: 0; font-size: clamp(32px, 4.7vw, 48px); line-height: 1.08; font-weight: 500; font-stretch: 85%; letter-spacing: -0.02em;">Guardamos lugar?</h1>
+      <p style="margin: 8px 0 0; font-size: 18px; line-height: 28px; color: #59635E;">Diga-nos quando vem e quantas pessoas são.</p>
+    </header>
+
+    <figure style="grid-area: img; margin: 0; align-self: end;">
+      <div style="position: relative; width: 100%; aspect-ratio: 4 / 3; background: #FFFFFF;">
+        <image-slot id="media-T01" src="./assets/media/T01.webp" shape="rect" placeholder="T01 · Antes — recorte, dois lugares" role="img" aria-label="Mesa preparada para dois antes do serviço."></image-slot>
+      </div>
+    </figure>
+
+    <form onSubmit="{{ submit }}" noValidate="{{ true }}" style="grid-area: form; min-width: 0; max-width: 640px;">
+      <sc-if value="{{ hasErros }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ errRef }}" tabindex="-1" role="alert" style="margin: 24px 0 0; padding: 16px; border: 2px solid #A13827; border-radius: 2px;">
+          <p style="margin: 0 0 8px; font-weight: 600; color: #A13827;">Falta completar {{ nErros }}:</p>
+          <ul style="margin: 0; padding-left: 20px;">
+            <sc-for list="{{ erros }}" as="e" hint-placeholder-count="1"><li><a href="{{ e.href }}" style="color: #252B29;">{{ e.msg }}</a></li></sc-for>
+          </ul>
+        </div>
+      </sc-if>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 20px 24px; margin-top: 32px;">
+        <div>
+          <label for="r-n" style="display: block; font-weight: 600; margin-bottom: 6px;">Pessoas</label>
+          <select id="r-n" value="{{ n }}" onChange="{{ setN }}" style="width: 100%; min-height: 48px; padding: 0 12px; font: inherit; color: #252B29; background: #FFFFFF; border: 1px solid #59635E; border-radius: 2px;">
+            <sc-for list="{{ nOpts }}" as="o" hint-placeholder-count="9"><option value="{{ o.v }}">{{ o.l }}</option></sc-for>
+          </select>
+        </div>
+        <div>
+          <label for="r-d" style="display: block; font-weight: 600; margin-bottom: 6px;">Data</label>
+          <select id="r-d" value="{{ di }}" onChange="{{ setDi }}" style="width: 100%; min-height: 48px; padding: 0 12px; font: inherit; color: #252B29; background: #FFFFFF; border: 1px solid #59635E; border-radius: 2px;">
+            <sc-for list="{{ dOpts }}" as="o" hint-placeholder-count="10"><option value="{{ o.v }}">{{ o.l }}</option></sc-for>
+          </select>
+        </div>
+        <div>
+          <label for="r-h" style="display: block; font-weight: 600; margin-bottom: 6px;">Hora pretendida</label>
+          <select id="r-h" value="{{ hora }}" onChange="{{ setHora }}" aria-invalid="{{ horaInvalid }}" aria-describedby="r-h-nota" style="{{ horaStyle }}">
+            <option value="">Escolher hora</option>
+            <sc-for list="{{ hOpts }}" as="o" hint-placeholder-count="8"><option value="{{ o.v }}">{{ o.l }}</option></sc-for>
+          </select>
+          <span id="r-h-nota" style="display: block; margin-top: 4px; font-size: 13px; line-height: 19px; font-weight: 500; color: #59635E;">Horas de demonstração, dentro do horário da casa.</span>
+          <sc-if value="{{ horaErr }}" hint-placeholder-val="{{ false }}"><span style="display: block; margin-top: 4px; color: #A13827; font-weight: 500;">Escolha uma hora.</span></sc-if>
+        </div>
+        <div>
+          <label for="r-e" style="display: block; font-weight: 600; margin-bottom: 6px;">Preferência de lugar</label>
+          <select id="r-e" value="{{ e }}" onChange="{{ setE }}" style="width: 100%; min-height: 48px; padding: 0 12px; font: inherit; color: #252B29; background: #FFFFFF; border: 1px solid #59635E; border-radius: 2px;">
+            <sc-for list="{{ eOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.v }}">{{ o.l }}</option></sc-for>
+          </select>
+        </div>
+      </div>
+
+      <sc-if value="{{ grupo }}" hint-placeholder-val="{{ false }}">
+        <p style="margin: 20px 0 0; padding: 12px 16px; border-left: 0; border: 1px solid #59635E; border-radius: 2px;">Para nove ou mais pessoas, contacte a casa diretamente: {{ telefone }} ou {{ email }}.</p>
+      </sc-if>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 20px 24px; margin-top: 20px;">
+        <div>
+          <label for="r-nome" style="display: block; font-weight: 600; margin-bottom: 6px;">Nome</label>
+          <input id="r-nome" autocomplete="name" value="{{ nome }}" onChange="{{ setNome }}" aria-invalid="{{ nomeInvalid }}" style="{{ nomeStyle }}">
+          <sc-if value="{{ nomeErr }}" hint-placeholder-val="{{ false }}"><span style="display: block; margin-top: 4px; color: #A13827; font-weight: 500;">Indique o seu nome.</span></sc-if>
+        </div>
+        <div>
+          <label for="r-tel" style="display: block; font-weight: 600; margin-bottom: 6px;">Telefone</label>
+          <input id="r-tel" type="tel" autocomplete="tel" value="{{ tel }}" onChange="{{ setTel }}" aria-invalid="{{ telInvalid }}" style="{{ telStyle }}">
+          <sc-if value="{{ telErr }}" hint-placeholder-val="{{ false }}"><span style="display: block; margin-top: 4px; color: #A13827; font-weight: 500;">Indique um telefone com pelo menos 9 algarismos.</span></sc-if>
+        </div>
+        <div style="grid-column: 1 / -1;">
+          <label for="r-email" style="display: block; font-weight: 600; margin-bottom: 6px;">Email <span style="font-weight: 500; color: #59635E;">(opcional)</span></label>
+          <input id="r-email" type="email" autocomplete="email" value="{{ email2 }}" onChange="{{ setEmail }}" style="width: 100%; min-height: 48px; padding: 0 12px; font: inherit; color: #252B29; background: #FFFFFF; border: 1px solid #59635E; border-radius: 2px;">
+        </div>
+        <div style="grid-column: 1 / -1;">
+          <label for="r-nota" style="display: block; font-weight: 600; margin-bottom: 6px;">Há alguma coisa que devamos preparar para a sua visita? <span style="font-weight: 500; color: #59635E;">(opcional)</span></label>
+          <textarea id="r-nota" rows="3" value="{{ nota }}" onChange="{{ setNota }}" style="width: 100%; min-height: 96px; padding: 12px; font: inherit; color: #252B29; background: #FFFFFF; border: 1px solid #59635E; border-radius: 2px; resize: vertical;"></textarea>
+        </div>
+      </div>
+
+      <div aria-hidden="true" style="display: flex; gap: clamp(16px, 4vw, 32px); margin: 32px 0 16px;">
+        <span style="flex: 0 0 calc(62.5% - clamp(8px, 2vw, 16px)); height: 2px; background: #252B29;"></span>
+        <span style="flex: 1 1 auto; height: 2px; background: #252B29;"></span>
+      </div>
+      <p style="margin: 0; font-size: 18px; line-height: 28px;">{{ resumo }}</p>
+
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 20px;">
+        <button type="submit" style="{{ submitStyle }}">Pré-visualizar pedido</button>
+        <span style="font-size: 13px; line-height: 19px; font-weight: 500; color: #59635E;">Demonstração: nada é enviado.</span>
+      </div>
+
+      <div role="status" aria-live="polite" style="margin-top: 16px;">
+        <sc-if value="{{ previewed }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 16px; border: 2px solid #252B29; border-radius: 2px;">
+            <p style="margin: 0; font-weight: 600;">Demonstração: este pedido não foi enviado e não reservou uma mesa.</p>
+            <p style="margin: 8px 0 0; color: #59635E;">Num restaurante real, o pedido seguiria para a equipa e só ficaria confirmado com a resposta dela.</p>
+          </div>
+        </sc-if>
+      </div>
+    </form>
+  </div>
+</main>
+<dc-import name="SiteFooter" hint-size="100%,240px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { ready: !!window.PATIO, w: window.innerWidth, n: '2', di: '0', hora: '', e: 'sem', nome: '', tel: '', email: '', nota: '', tried: false, previewed: false };
+  errRef = React.createRef();
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    const q = new URLSearchParams(location.search);
+    const patch = {};
+    if (q.get('n') && +q.get('n') >= 1 && +q.get('n') <= 9) patch.n = String(+q.get('n'));
+    if (['sala', 'balcao', 'patio'].includes(q.get('e'))) patch.e = q.get('e');
+    this.setState(patch);
+    const wait = () => window.PATIO ? this.setState({ ready: true }) : setTimeout(wait, 40);
+    wait();
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onR); }
+  days() {
+    const H = window.PATIO.casa.horario, out = [], t = new Date(); t.setHours(0, 0, 0, 0);
+    for (let i = 0; out.length < 14 && i < 30; i++) {
+      const d = new Date(t); d.setDate(t.getDate() + i);
+      const row = H.find(r => r.dias.includes(d.getDay()));
+      if (!row || !row.turnos.length) continue;
+      out.push({ date: d, row, l: (i === 0 ? 'Hoje, ' : i === 1 ? 'Amanhã, ' : '') + d.toLocaleDateString('pt-PT', { weekday: 'long', day: 'numeric', month: 'long' }),
+        frase: d.toLocaleDateString('pt-PT', { weekday: 'long', day: 'numeric', month: 'long' }) });
+    }
+    return out;
+  }
+  hours(row) {
+    const toM = s => { const [h, m] = s.split('h').map(Number); return (h === 0 ? 24 : h) * 60 + (m || 0); };
+    const out = [];
+    row.turnos.forEach(([a, b]) => { for (let m = toM(a); m <= toM(b) - 90; m += 30) out.push(String(Math.floor(m / 60) % 24).padStart(2, '0') + 'h' + String(m % 60).padStart(2, '0')); });
+    return out;
+  }
+  renderVals() {
+    const s = this.state, wide = s.w >= 1024;
+    const layoutStyle = wide
+      ? { display: 'grid', gridTemplateColumns: 'minmax(0, 7fr) minmax(0, 4fr)', gridTemplateAreas: '"intro img" "form ."', gap: '0 48px', alignItems: 'start' }
+      : { display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gridTemplateAreas: '"intro" "form" "img"', gap: 32 };
+    const field = bad => ({ width: '100%', minHeight: 48, padding: '0 12px', font: 'inherit', color: '#252B29', background: '#FFFFFF', border: (bad ? '2px solid #A13827' : '1px solid #59635E'), borderRadius: 2 });
+    const submitStyle = { minHeight: 48, padding: '12px 20px', background: '#252B29', color: '#FFFFFF', border: 0, borderRadius: 2, font: 'inherit', fontWeight: 600, cursor: 'pointer', width: wide ? 'auto' : '100%' };
+    if (!s.ready) return { layoutStyle, nOpts: [], dOpts: [], hOpts: [], eOpts: [], erros: [], horaStyle: field(false), nomeStyle: field(false), telStyle: field(false), submitStyle };
+    const C = window.PATIO.casa;
+    const days = this.days();
+    const day = days[+s.di] || days[0];
+    const hOpts = this.hours(day.row).map(v => ({ v, l: v }));
+    const grupo = +s.n >= 9;
+    const errs = [];
+    if (!s.hora) errs.push({ k: 'hora', msg: 'Escolha uma hora.', href: '#r-h' });
+    if (!s.nome.trim()) errs.push({ k: 'nome', msg: 'Indique o seu nome.', href: '#r-nome' });
+    if ((s.tel.match(/\d/g) || []).length < 9) errs.push({ k: 'tel', msg: 'Indique um telefone.', href: '#r-tel' });
+    const show = s.tried ? errs : [];
+    const has = k => show.some(e => e.k === k);
+    const set = k => ev => this.setState({ [k]: ev.target.value, previewed: false });
+    const pessoas = +s.n === 1 ? 'Venho sozinho/a' : grupo ? 'Somos nove ou mais' : 'Somos ' + s.n;
+    const lugar = { sem: 'Sem preferência de lugar.', sala: 'Preferíamos a sala.', balcao: 'Preferíamos o balcão.', patio: 'Preferíamos o pátio.' }[s.e];
+    const resumo = pessoas + ', ' + (/^(sábado|domingo)/.test(day.frase) ? 'no ' : 'na ') + day.frase + (s.hora ? ', às ' + s.hora : '') + '. ' + lugar;
+    return {
+      layoutStyle, submitStyle,
+      n: s.n, di: s.di, hora: s.hora, e: s.e, nome: s.nome, tel: s.tel, email2: s.email, nota: s.nota,
+      nOpts: ['1', '2', '3', '4', '5', '6', '7', '8'].map(v => ({ v, l: v === '1' ? '1 pessoa' : v + ' pessoas' })).concat([{ v: '9', l: '9 ou mais' }]),
+      dOpts: days.map((d, i) => ({ v: String(i), l: d.l })), hOpts,
+      eOpts: C.espacos.map(x => ({ v: x.v, l: x.l })),
+      setN: set('n'), setDi: ev => this.setState({ di: ev.target.value, hora: '', previewed: false }), setHora: set('hora'), setE: set('e'),
+      setNome: set('nome'), setTel: set('tel'), setEmail: set('email'), setNota: set('nota'),
+      grupo, telefone: C.telefone, email: C.email,
+      horaErr: has('hora'), nomeErr: has('nome'), telErr: has('tel'),
+      horaInvalid: has('hora') ? 'true' : undefined, nomeInvalid: has('nome') ? 'true' : undefined, telInvalid: has('tel') ? 'true' : undefined,
+      horaStyle: field(has('hora')), nomeStyle: field(has('nome')), telStyle: field(has('tel')),
+      hasErros: show.length > 0, erros: show, nErros: show.length === 1 ? '1 campo' : show.length + ' campos', errRef: this.errRef,
+      resumo, previewed: s.previewed,
+      submit: ev => {
+        ev.preventDefault();
+        if (errs.length || grupo) { this.setState({ tried: true, previewed: false }, () => this.errRef.current && this.errRef.current.focus()); return; }
+        this.setState({ tried: true, previewed: true });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

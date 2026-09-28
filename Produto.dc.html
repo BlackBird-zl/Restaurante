@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Carta — Pátio do Ferro, Porto</title>
+  <meta name="description" content="Um prato da carta do Pátio do Ferro: preço, porção, preparação e o que beber com ele.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;display=swap">
+  <script src="./image-slot.js"></script>
+  <script src="./carta-data.js"></script>
+  <script src="./patio-media.js"></script>
+  <style>body{margin:0;background:#F1F2EE;color:#252B29;font-family:'Archivo',system-ui,sans-serif;font-size:16px;line-height:24px;text-wrap:pretty;overflow-x:clip}*,*::before,*::after{box-sizing:border-box}a{color:#252B29;text-underline-offset:4px}a:hover{color:#59635E}:focus-visible{outline:2px solid #252B29;outline-offset:3px}@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}</style>
+</helmet>
+<dc-import name="SiteHeader" active="carta" hint-size="100%,64px"></dc-import>
+<main style="max-width: 1248px; margin: 0 auto; padding: 0 clamp(16px, 5vw, 48px) clamp(40px, 6vw, 64px);">
+  <sc-if value="{{ notFound }}" hint-placeholder-val="{{ false }}">
+    <section aria-labelledby="h-nf" style="padding: clamp(32px, 5vw, 48px) 0 64px; max-width: 640px;">
+      <h1 id="h-nf" style="margin: 0; font-size: clamp(32px, 4.7vw, 48px); line-height: 1.08; font-weight: 500; font-stretch: 85%; letter-spacing: -0.02em;">Não encontrámos este prato.</h1>
+      <p style="margin: 12px 0 24px; font-size: 18px; line-height: 28px; color: #59635E;">Pode ter saído da carta ou a ligação pode estar incompleta.</p>
+      <a href="Carta.dc.html" style="display: inline-flex; align-items: center; min-height: 48px; padding: 12px 20px; background: #252B29; color: #FFFFFF; border-radius: 2px; font-weight: 600; text-decoration: none;">Ver a carta</a>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ found }}" hint-placeholder-val="{{ true }}">
+    <nav aria-label="Caminho" style="padding: 16px 0 8px;">
+      <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 8px; font-size: 16px; color: #59635E;">
+        <li><a href="Carta.dc.html" style="display: inline-flex; align-items: center; min-height: 48px;">Carta</a></li>
+        <li aria-hidden="true">→</li>
+        <li><a href="{{ capHref }}" style="display: inline-flex; align-items: center; min-height: 48px;">{{ capNome }}</a></li>
+        <li aria-hidden="true">→</li>
+        <li aria-current="page" style="color: #252B29;">{{ nome }}</li>
+      </ol>
+    </nav>
+
+    <article data-screen-label="Produto" style="{{ gridStyle }}">
+      <header style="grid-area: top; padding-top: 8px;">
+        <h1 style="margin: 0; font-size: clamp(32px, 4.7vw, 48px); line-height: 1.08; font-weight: 500; font-stretch: 85%; letter-spacing: -0.02em;">{{ nome }}</h1>
+        <p style="margin: 12px 0 0; font-size: 16px; line-height: 24px; font-weight: 500; font-variant-numeric: tabular-nums;">
+          <span style="display: block; font-size: 19px; line-height: 25px; font-weight: 600;">{{ preco }}</span>
+          <sc-if value="{{ hasPorcao }}" hint-placeholder-val="{{ false }}"><span style="display: block; color: #59635E;">{{ porcao }}</span></sc-if>
+        </p>
+      </header>
+
+      <sc-if value="{{ hasMedia }}" hint-placeholder-val="{{ true }}">
+        <figure style="grid-area: fig; margin: 0; min-width: 0;">
+          <div style="position: relative; width: 100%; aspect-ratio: 4 / 3; background: #FFFFFF;">
+            <image-slot id="{{ slotId }}" src="{{ mediaSrc }}" shape="rect" placeholder="{{ brief }}" role="img" aria-label="{{ alt }}"></image-slot>
+          </div>
+          <sc-if value="{{ hasMediaNota }}" hint-placeholder-val="{{ false }}">
+            <figcaption style="margin-top: 8px; font-size: 13px; line-height: 19px; font-weight: 500; color: #59635E;">{{ mediaNota }}</figcaption>
+          </sc-if>
+        </figure>
+      </sc-if>
+
+      <div style="grid-area: rest; min-width: 0;">
+        <div aria-hidden="true" style="display: flex; gap: clamp(16px, 4vw, 32px); margin: 0 0 16px;">
+          <span style="flex: 0 0 calc(62.5% - clamp(8px, 2vw, 16px)); height: 2px; background: #252B29;"></span>
+          <span style="flex: 1 1 auto; height: 2px; background: #252B29;"></span>
+        </div>
+        <sc-if value="{{ hasServico }}" hint-placeholder-val="{{ false }}">
+          <ul style="list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 24px; font-size: 16px; line-height: 24px; font-weight: 500;">
+            <sc-for list="{{ servico }}" as="s" hint-placeholder-count="2"><li>{{ s }}</li></sc-for>
+          </ul>
+        </sc-if>
+        <p style="margin: 0; font-size: 18px; line-height: 28px; max-width: 60ch;">{{ desc }}</p>
+        <sc-if value="{{ hasLongo }}" hint-placeholder-val="{{ false }}">
+          <p style="margin: 12px 0 0; font-size: 18px; line-height: 28px; max-width: 60ch; color: #59635E;">{{ longo }}</p>
+        </sc-if>
+        <sc-if value="{{ hasIngr }}" hint-placeholder-val="{{ false }}">
+          <p style="margin: 20px 0 0; font-size: 16px; line-height: 24px; max-width: 60ch;"><strong style="font-weight: 600;">Ingredientes:</strong> {{ ingr }}</p>
+        </sc-if>
+        <p style="margin: 12px 0 0; font-size: 16px; line-height: 24px; color: #59635E;">{{ alergenos }}</p>
+
+        <sc-if value="{{ hasPar }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #B7BEB8;">
+            <span style="display: block; font-size: 13px; line-height: 19px; font-weight: 500; color: #59635E;">Para acompanhar</span>
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; margin-top: 4px;">
+              <span style="font-size: 19px; line-height: 25px; font-weight: 600;">{{ parNome }}</span>
+              <span style="font-weight: 500; font-variant-numeric: tabular-nums;">{{ parPreco }}</span>
+            </div>
+            <a href="{{ parHref }}" style="display: inline-flex; align-items: center; min-height: 48px; font-weight: 600;">Ver na carta</a>
+          </div>
+        </sc-if>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 32px;">
+          <a href="{{ backHref }}" style="display: inline-flex; align-items: center; min-height: 48px; padding: 12px 20px; border: 1px solid #252B29; border-radius: 2px; font-weight: 600; text-decoration: none;">Voltar à carta</a>
+          <a href="Reservas.dc.html" style="display: inline-flex; align-items: center; min-height: 48px; padding: 12px 20px; background: #252B29; color: #FFFFFF; border-radius: 2px; font-weight: 600; text-decoration: none; transition: background-color 120ms;" style-hover="background: #59635E; color: #FFFFFF;">Pedir reserva</a>
+        </div>
+      </div>
+    </article>
+  </sc-if>
+</main>
+<dc-import name="SiteFooter" bar="produto" hint-size="100%,240px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;slug&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;polvo-na-brasa&quot;,&quot;costeleta-maronesa&quot;,&quot;couve-coracao&quot;,&quot;arroz-carabineiro&quot;,&quot;pudim-abade-priscos&quot;,&quot;vermute-casa&quot;,&quot;batata-a-murro&quot;],&quot;default&quot;:&quot;polvo-na-brasa&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { ready: !!(window.PATIO && window.PATIO_MEDIA), w: window.innerWidth };
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+    const wait = () => (window.PATIO && window.PATIO_MEDIA) ? this.setState({ ready: true }) : setTimeout(wait, 40);
+    wait();
+  }
+  componentDidUpdate() { if (this._nome && document.title.indexOf(this._nome) !== 0) document.title = this._nome + ' — Pátio do Ferro, Porto'; }
+  componentWillUnmount() { window.removeEventListener('resize', this.onR); }
+  renderVals() {
+    const wide = this.state.w >= 1024;
+    const P = window.PATIO;
+    if (!this.state.ready) return { found: false, notFound: false, servico: [] };
+    const slug = new URLSearchParams(location.search).get('p') || this.props.slug || 'polvo-na-brasa';
+    const f = P.find(slug);
+    if (!f) return { found: false, notFound: true, servico: [] };
+    const it = f.item, c = f.cat;
+    this._nome = it.nome;
+    const media = it.media ? window.PATIO_MEDIA[it.media] : null;
+    const par = it.par ? P.find(it.par) : null;
+    const servico = [
+      it.preparacao ? 'Preparação aproximada: ' + it.preparacao + ' min' : null,
+      it.tags.includes('para partilhar') ? 'Para partilhar' : null,
+      it.tags.includes('vegan') ? 'Vegan' : it.tags.includes('vegetariano') ? 'Vegetariano' : null
+    ].filter(Boolean);
+    const gridStyle = wide
+      ? { display: 'grid', gridTemplateColumns: 'minmax(0, 5fr) minmax(0, 7fr)', gridTemplateAreas: media ? '"top fig" "rest fig"' : '"top ." "rest ."', gap: '24px 48px', alignItems: 'start', paddingTop: 16 }
+      : { display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gridTemplateAreas: media ? '"top" "fig" "rest"' : '"top" "rest"', gap: 24, paddingTop: 8 };
+    return {
+      found: true, notFound: false, gridStyle,
+      nome: it.nome, desc: it.desc, preco: P.preco(it), hasPorcao: !!it.porcao, porcao: it.porcao,
+      hasLongo: !!it.longo, longo: it.longo,
+      hasIngr: !!(it.ingredientes && it.ingredientes.length), ingr: (it.ingredientes || []).join(', ') + '.',
+      alergenos: 'Alergénios: confirme com a equipa antes de pedir.',
+      servico, hasServico: servico.length > 0,
+      capNome: c.nome, capHref: 'Carta.dc.html#' + c.id, backHref: 'Carta.dc.html#' + c.id,
+      hasMedia: !!media, slotId: media ? 'media-' + media.id : '', mediaSrc: media ? media.src : '', brief: media ? media.brief : '', alt: media ? media.alt : '',
+      hasMediaNota: !!it.mediaNota, mediaNota: it.mediaNota,
+      hasPar: !!par, parNome: par ? par.item.nome : '', parPreco: par ? P.preco(par.item) : '', parHref: par ? 'Produto.dc.html?p=' + par.item.slug : ''
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Pátio do Ferro — Cozinha de brasa e mesa de bairro, Porto</title>
+  <meta name="description" content="Pátio do Ferro: cozinha de brasa e mesa de bairro no Porto. A mesa pede tempo.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;display=swap">
+  <script src="./image-slot.js"></script>
+  <script src="./carta-data.js"></script>
+  <script src="./patio-media.js"></script>
+  <script src="./patio-scenes.js"></script>
+  <style>body{margin:0;background:#F1F2EE;color:#252B29;font-family:'Archivo',system-ui,sans-serif;font-size:16px;line-height:24px;text-wrap:pretty;overflow-x:clip}*,*::before,*::after{box-sizing:border-box}a{color:#252B29;text-underline-offset:4px}a:hover{color:#59635E}:focus-visible{outline:2px solid #252B29;outline-offset:3px}@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}</style>
+</helmet>
+<dc-import name="SiteHeader" active="home" hint-size="100%,64px"></dc-import>
+<main style="max-width: 832px; margin: 0 auto; padding: 0 clamp(16px, 5vw, 48px);">
+  <section aria-labelledby="h-abertura" data-screen-label="Home · Abertura" style="padding: clamp(32px, 5vw, 48px) 0 24px;">
+    <h1 id="h-abertura" style="margin: 0; font-size: clamp(38px, 6.25vw, 64px); line-height: 1.03; font-weight: 500; font-stretch: 85%; letter-spacing: -0.02em;">A mesa pede tempo.</h1>
+    <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-top: 12px;">
+      <p style="margin: 0; font-size: 18px; line-height: 28px; color: #59635E;">Uma noite no Pátio, das 19h à meia-noite.</p>
+      <a href="Carta.dc.html" style="display: inline-flex; align-items: center; min-height: 48px; font-weight: 600;">Ir à carta</a>
+    </div>
+  </section>
+
+  <section aria-label="Uma noite no Pátio" data-screen-label="Home · Mesa" style="{{ viewerStyle }}">
+    <figure id="noite-figura" style="margin: 0;">
+      <div style="position: relative; width: 100%; aspect-ratio: 4 / 3; background: #FFFFFF; overflow: hidden;">
+        <sc-for list="{{ frames }}" as="f" hint-placeholder-count="1">
+          <div style="{{ f.style }}">
+            <sc-if value="{{ f.hasSrc }}" hint-placeholder-val="{{ false }}">
+              <img src="{{ f.src }}" alt="{{ f.alt }}" width="1600" height="1200" style="display: block; width: 100%; height: 100%; object-fit: cover;">
+            </sc-if>
+            <sc-if value="{{ f.noSrc }}" hint-placeholder-val="{{ true }}">
+              <image-slot id="{{ f.slotId }}" shape="rect" placeholder="{{ f.brief }}" role="img" aria-label="{{ f.alt }}"></image-slot>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div aria-hidden="true" style="display: flex; gap: clamp(16px, 4vw, 32px); margin: 16px 0 12px;">
+        <span style="flex: 0 0 calc(62.5% - clamp(8px, 2vw, 16px)); height: 2px; background: #252B29;"></span>
+        <span style="flex: 1 1 auto; height: 2px; background: #252B29;"></span>
+      </div>
+      <figcaption style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 24px;">
+        <span style="{{ captionStyle }}">{{ caption }}</span>
+        <span style="font-size: 16px; line-height: 24px; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap;">{{ shownLabel }} · {{ shownTime }}</span>
+      </figcaption>
+    </figure>
+    <div style="min-height: 48px; display: flex; align-items: center;">
+      <sc-if value="{{ hasLink }}" hint-placeholder-val="{{ false }}">
+        <a href="{{ linkHref }}" style="display: inline-flex; align-items: center; min-height: 48px; font-weight: 600;">{{ linkLabel }}</a>
+      </sc-if>
+    </div>
+    <div role="group" aria-label="Momentos da noite" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(4px, 1vw, 8px); margin-top: 8px;">
+      <sc-for list="{{ moments }}" as="m" hint-placeholder-count="5">
+        <button type="button" aria-pressed="{{ m.pressed }}" aria-controls="noite-figura" onClick="{{ m.pick }}" style="{{ m.style }}">
+          <span>{{ m.label }}</span>
+          <span style="font-size: 13px; line-height: 19px; font-weight: 500; font-variant-numeric: tabular-nums; color: #59635E;">{{ m.time }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div style="display: flex; gap: 8px; margin-top: 8px;">
+      <button type="button" onClick="{{ prev }}" disabled="{{ atFirst }}" style="{{ prevStyle }}">Anterior</button>
+      <button type="button" onClick="{{ next }}" disabled="{{ atLast }}" style="{{ nextStyle }}">Seguinte</button>
+      <p role="status" aria-live="polite" style="flex: 1 1 auto; margin: 0; align-self: center; text-align: right; font-size: 13px; line-height: 19px; font-weight: 500; color: #59635E;">{{ status }}</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-carta" data-screen-label="Home · Carta" style="padding: clamp(40px, 6vw, 64px) 0 0;">
+    <h2 id="h-carta" style="margin: 0 0 16px; font-size: clamp(25px, 2.8vw, 28px); line-height: 1.15; font-weight: 600; font-stretch: 95%;">Da carta</h2>
+    <ul style="list-style: none; margin: 0; padding: 0; border-top: 1px solid #B7BEB8;">
+      <sc-for list="{{ destaques }}" as="d" hint-placeholder-count="4">
+        <li style="border-bottom: 1px solid #B7BEB8;">
+          <a href="{{ d.href }}" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding: 16px 0; text-decoration: none;" style-hover="text-decoration: underline;">
+            <span style="flex: 1 1 220px; min-width: 0;">
+              <span style="display: block; font-size: 19px; line-height: 25px; font-weight: 600;">{{ d.nome }}</span>
+              <span style="display: block; font-size: 16px; line-height: 24px; color: #59635E;">{{ d.desc }}</span>
+            </span>
+            <span style="flex: 0 1 auto; text-align: right; font-size: 16px; line-height: 24px; font-weight: 500; font-variant-numeric: tabular-nums;">
+              <span style="display: block;">{{ d.preco }}</span>
+              <span style="display: block; color: #59635E;">{{ d.qualif }}</span>
+            </span>
+          </a>
+        </li>
+      </sc-for>
+    </ul>
+    <a href="Carta.dc.html" style="display: inline-flex; align-items: center; min-height: 48px; margin-top: 8px; font-weight: 600;">Ver a carta completa</a>
+  </section>
+
+  <section aria-labelledby="h-vir" data-screen-label="Home · Vir" style="padding: clamp(40px, 6vw, 64px) 0 clamp(40px, 6vw, 64px);">
+    <h2 id="h-vir" style="margin: 0 0 16px; font-size: clamp(25px, 2.8vw, 28px); line-height: 1.15; font-weight: 600; font-stretch: 95%;">Vir ao Pátio</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 24px 48px;">
+      <dl style="flex: 1 1 300px; margin: 0;">
+        <sc-for list="{{ horario }}" as="h" hint-placeholder-count="4">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 16px; padding: 8px 0; border-bottom: 1px solid #B7BEB8;">
+            <dt style="font-weight: 600;">{{ h.d }}</dt>
+            <dd style="margin: 0; font-variant-numeric: tabular-nums; color: #59635E;">{{ h.h }}</dd>
+          </div>
+        </sc-for>
+      </dl>
+      <div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 4px;">
+        <span>{{ morada }}</span>
+        <span style="font-size: 13px; line-height: 19px; font-weight: 500; color: #59635E;">Morada de demonstração.</span>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-top: 16px;">
+          <a href="Reservas.dc.html" style="display: inline-flex; align-items: center; min-height: 48px; padding: 12px 20px; background: #252B29; color: #FFFFFF; border-radius: 2px; font-weight: 600; text-decoration: none; transition: background-color 120ms;" style-hover="background: #59635E; color: #FFFFFF;">Pedir reserva</a>
+          <a href="Ambiente.dc.html" style="display: inline-flex; align-items: center; min-height: 48px; font-weight: 600;">Ver a sala e o pátio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<dc-import name="SiteFooter" hint-size="100%,240px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    const q = new URLSearchParams(location.search).get('momento');
+    const ids = ['antes', 'pao', 'centro', 'ficar', 'depois'];
+    const start = ids.includes(q) ? q : 'antes';
+    this.state = { w: window.innerWidth, h: window.innerHeight, ready: false, shown: start, requested: start, status: '' };
+  }
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth, h: window.innerHeight });
+    window.addEventListener('resize', this.onR);
+    const wait = () => (window.PATIO && window.PATIO_SCENES && window.PATIO_MEDIA) ? this.setState({ ready: true }, () => this.preloadNext()) : setTimeout(wait, 40);
+    wait();
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onR); }
+  scenes() { return window.PATIO_SCENES.home; }
+  media(s) { return window.PATIO_MEDIA[s.mediaId] || {}; }
+  preloadNext() {
+    const sc = this.scenes(); const i = sc.findIndex(s => s.id === this.state.shown);
+    const n = sc[i + 1]; if (n && this.media(n).src) { const im = new Image(); im.src = this.media(n).src; }
+  }
+  select(id) {
+    const s = this.scenes().find(x => x.id === id); if (!s) return;
+    this.setState({ requested: id });
+    const url = new URL(location.href); url.searchParams.set('momento', id); history.replaceState(null, '', url);
+    const src = this.media(s).src;
+    const commit = () => { if (this.state.requested !== id) return; this.setState({ shown: id, status: s.label + ', ' + s.editorialTime }, () => this.preloadNext()); };
+    if (!src) return commit();
+    this.setState({ status: 'A carregar este momento' });
+    const im = new Image(); im.src = src;
+    (im.decode ? im.decode() : Promise.resolve()).then(commit).catch(() => { if (this.state.requested === id) this.setState({ status: 'Este momento não está disponível' }); });
+  }
+  renderVals() {
+    const s = this.state;
+    const desk = s.w >= 1024 && s.h >= 740;
+    const fh = desk ? Math.min(600, s.h - 320) : null;
+    const viewerStyle = { maxWidth: desk ? Math.min(800, Math.round(fh * 4 / 3)) : 800 };
+    const btn = (dis) => ({ minHeight: 48, padding: '0 16px', background: 'transparent', border: '1px solid #252B29', borderRadius: 2, font: 'inherit', fontWeight: 600, color: '#252B29',
+      cursor: dis ? 'not-allowed' : 'pointer', opacity: dis ? 0.45 : 1 });
+    if (!s.ready) return { viewerStyle, frames: [], moments: [], destaques: [], horario: [], captionStyle: {}, prevStyle: btn(true), nextStyle: btn(true), atFirst: true, atLast: true };
+    const P = window.PATIO;
+    const sc = this.scenes();
+    const i = sc.findIndex(x => x.id === s.shown);
+    const cur = sc[i];
+    const frames = sc.map(x => { const m = this.media(x); return {
+      style: { position: 'absolute', inset: 0, display: x.id === s.shown ? 'block' : 'none' },
+      hasSrc: !!m.src, noSrc: !m.src, src: m.src, alt: m.alt, slotId: 'media-' + x.mediaId, brief: m.brief }; });
+    const moments = sc.map(x => { const on = x.id === s.requested; return {
+      label: x.label, time: x.editorialTime, pressed: on ? 'true' : 'false', pick: () => this.select(x.id),
+      style: { minHeight: 56, padding: '6px 2px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'transparent',
+        border: '2px solid ' + (on ? '#252B29' : '#59635E'), borderRadius: 2, boxShadow: on ? 'inset 0 4px 0 #A13827' : 'none', font: 'inherit', fontSize: 15, lineHeight: '20px',
+        fontWeight: on ? 600 : 500, color: '#252B29', cursor: 'pointer', transition: 'border-color 120ms, box-shadow 120ms', minWidth: 0 } }; });
+    const ri = sc.findIndex(x => x.id === s.requested);
+    const slugs = ['polvo-na-brasa', 'costeleta-maronesa', 'couve-coracao', 'pudim-abade-priscos'];
+    const destaques = slugs.map(sl => P.find(sl)).filter(Boolean).map(({ item }) => ({
+      nome: item.nome, desc: item.desc, preco: P.preco(item), href: 'Produto.dc.html?p=' + item.slug,
+      qualif: [item.porcao, item.tags.includes('vegetariano') ? 'Vegetariano' : null].filter(Boolean).join(' · ')
+    }));
+    return {
+      viewerStyle, frames, moments,
+      caption: cur.caption, shownLabel: cur.label, shownTime: cur.editorialTime,
+      captionStyle: { flex: '1 1 260px', fontSize: 18, lineHeight: '28px', minHeight: s.w < 768 ? 84 : 56 },
+      hasLink: !!cur.optionalLink, linkHref: cur.optionalLink ? cur.optionalLink.href : '', linkLabel: cur.optionalLink ? cur.optionalLink.label : '',
+      atFirst: ri <= 0, atLast: ri >= sc.length - 1, prevStyle: btn(ri <= 0), nextStyle: btn(ri >= sc.length - 1),
+      prev: () => ri > 0 && this.select(sc[ri - 1].id), next: () => ri < sc.length - 1 && this.select(sc[ri + 1].id),
+      status: s.status, destaques,
+      horario: P.casa.horario, morada: P.casa.morada + ' · ' + P.casa.cp
+    };
+  }
+}
+</script>
+</body>
+</html>
