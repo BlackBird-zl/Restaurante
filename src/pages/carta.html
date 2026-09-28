@@ -1,0 +1,21 @@
+<!--meta {"title":"Carta · Miolo","desc":"Carta completa da Miolo: O Clássico e mais cinco hambúrgueres, acompanhamentos, molhos, bebidas e sobremesas, com preços. Adicione e encomende para recolha.","css":["carta"],"js":["carta"],"head":"light"} -->
+<div class="carta-top">
+  <div><p class="chapter" style="color:var(--muted)">03 · Escolha</p><h1>Carta</h1></div>
+  <p>Seis hambúrgueres, montados à mão. Novilho nacional, brioche da casa. Para levar, a embalagem custa 0,50 € por hambúrguer.</p>
+</div>
+<nav class="cats" aria-label="Categorias da carta"><ul id="cats"></ul></nav>
+<div class="carta">
+  <article class="feature" id="hamburgueres" aria-labelledby="f-cl">
+    <div class="ph">{{PIC mesa | sizes=(max-width:900px) 100vw, 58vw | alt=O Clássico visto ligeiramente de cima, em papel sobre uma tábua, com maionese ao lado. | eager}}</div>
+    <div class="tx">
+      <span class="mono" style="font-size:12px;color:var(--muted)">N.º 01 · 150 G · 4 MIN</span>
+      <h2 id="f-cl">O Clássico</h2>
+      <p class="desc">150 g de novilho, cheddar, alface frisada, tomate, maionese da casa, brioche com sésamo.</p>
+      <div class="tags"><span class="tag star">O mais pedido</span></div>
+      <a class="link-arrow more" href="{{P:classico}}">Ver as sete camadas <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      <div class="row"><span class="price-xl">9,50 €</span><span class="ctl" data-ctl="classico" data-big="1"></span></div>
+    </div>
+  </article>
+  <ul class="burgers" id="burgers" aria-label="Outros hambúrgueres"></ul>
+  <div id="rest"></div>
+</div>

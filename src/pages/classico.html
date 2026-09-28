@@ -1,0 +1,94 @@
+<!--meta {"title":"O Clássico · Miolo","desc":"O Clássico da Miolo de perto: as sete camadas, os grandes planos, o corte e a montagem à mão. 150 g de novilho, cheddar, brioche de 12 horas.","css":["classico"],"js":["classico"],"head":"light","preload":[{"k":"sc-estudio","sizes":"(max-width:900px) 100vw, 56vw"}]} -->
+<ol class="rail" id="rail" aria-label="Distância ao Clássico">
+  <li><a href="#inteiro" aria-current="true"><span>A 1 m · inteiro</span></a></li>
+  <li><a href="#camadas"><span>A 30 cm · camadas</span></a></li>
+  <li><a href="#ao-perto"><span>A 5 cm · ao perto</span></a></li>
+  <li><a href="#por-dentro"><span>Por dentro</span></a></li>
+  <li><a href="#maos"><span>Nas mãos</span></a></li>
+</ol>
+
+<!-- 1 · INTEIRO -->
+<section class="whole" id="inteiro" data-rail="#1E1611" aria-labelledby="h1">
+  <div class="tx">
+    <p class="chapter" style="color:#5E4E43">N.º 01 · a um metro</p>
+    <h1 id="h1">O Clássico.</h1>
+    <p class="lede">O hambúrguer que dá nome à casa. Sete camadas montadas pela mesma ordem, sempre. Esta página desmonta-o, uma distância de cada vez.</p>
+    <ul class="spec-row">
+      <li><strong>150 g</strong><span>Novilho</span></li>
+      <li><strong>7</strong><span>Camadas</span></li>
+      <li><strong>4 min</strong><span>Chapa ao balcão</span></li>
+      <li><strong>9,50 €</strong><span>Preço</span></li>
+    </ul>
+    <div class="actions">
+      <button class="btn btn-ink" type="button" data-add="classico">Adicionar à encomenda</button>
+      <a class="btn btn-line" href="#camadas">Desmontar</a>
+    </div>
+  </div>
+  <figure>{{PIC sc-estudio | sizes=(max-width:900px) 100vw, 56vw | alt=O Clássico inteiro, de frente, sobre fundo neutro com luz de estúdio. | eager}}</figure>
+</section>
+
+<!-- 2 · CAMADAS -->
+<section class="anat" id="camadas" aria-labelledby="h-anat">
+  <div class="anat-head">
+    <div><p class="chapter" style="color:var(--muted)">A 30 cm · as camadas</p><h2 id="h-anat">De cima<br>a baixo.</h2></div>
+    <p>Cada camada protege a seguinte. Escolha uma para a separar das outras e aproximar a câmara. As setas do teclado também percorrem a pilha.</p>
+  </div>
+  <div class="anat-body">
+    <div class="specwrap">
+      <div class="spec" id="spec" role="img" aria-label="O Clássico cortado em sete faixas horizontais, uma por camada.">
+        <button type="button" class="chip spec-toggle" id="explode" aria-pressed="false">Separar camadas</button>
+      </div>
+      <div class="lupa" aria-live="polite"><span class="lab" id="lupaLab">Pão de brioche · ao perto</span><img id="lupaImg" alt="" width="800" height="800" decoding="async"></div>
+    </div>
+    <div>
+      <ol class="layers" id="layers"></ol>
+      <div class="stepper"><span class="mono" id="stepTxt">01 / 07</span><div class="btns"><button type="button" id="prevL">Camada anterior</button><button type="button" id="nextL">Seguinte</button></div></div>
+      <div class="anat-total"><strong>Montado</strong><span class="mono">≈ 395 g · 4 min · 9,50 €</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · AO PERTO -->
+<section class="close" id="ao-perto" aria-labelledby="h-close">
+  <div class="ed">
+    <figure class="a">{{PIC perto-drip | sizes=(max-width:900px) 100vw, 62vw | alt=Cheddar derretido a escorrer pela carne grelhada, com o brioche tostado por baixo.}}<span class="cap">Cheddar · última volta</span></figure>
+    <div class="t1"><p class="chapter">A 5 cm</p><h2 id="h-close">Ao perto.</h2><p>O mesmo Clássico, a um palmo de distância.</p></div>
+    <figure class="b">{{PIC perto-topo | sizes=(max-width:900px) 50vw, 30vw | alt=Tampa do brioche coberta de sésamo, maionese e alface frisada com gotas de água.}}<span class="cap">Brioche · 12 h</span></figure>
+    <figure class="c">{{PIC perto-faixa | sizes=(max-width:900px) 100vw, 62vw | alt=Faixa de alface frisada, tomate com gotas e cheddar a começar a derreter.}}<span class="cap">Alface · tomate · cheddar</span></figure>
+    <p class="t2"><span>150 g</span> 230 °C <span>4 min</span></p>
+  </div>
+</section>
+
+<!-- 4 · POR DENTRO -->
+<section class="inside" id="por-dentro" aria-labelledby="h-in">
+  <figure>{{PIC cortado | sizes=(max-width:900px) 100vw, 52vw | alt=O Clássico cortado ao meio: miolo do brioche, maionese, alface, tomate, cheddar e a carne ao ponto, rosada no centro.}}</figure>
+  <div>
+    <p class="chapter" style="color:var(--muted)">Cortado ao meio</p>
+    <h2 id="h-in">Por dentro.</h2>
+    <p class="lede">Corte um Clássico e as camadas continuam no lugar. É para isso que servem a ordem e o pão tostado.</p>
+    <ol class="facts3">
+      <li><span class="ix">01</span><strong>Brioche</strong><span class="mono">12 H DE MASSA</span></li>
+      <li><span class="ix">02</span><strong>Carne ao ponto</strong><span class="mono">150 G · 20 % GORDURA</span></li>
+      <li><span class="ix">03</span><strong>Cheddar</strong><span class="mono">ÚLTIMA VOLTA</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 5 · MÃOS -->
+<section class="hands" id="maos" aria-labelledby="h-hands">
+  <div class="tx">
+    <div>
+      <p class="chapter">Nas mãos</p>
+      <h2 id="h-hands">Montado<br>à mão.</h2>
+      <p>Cada Clássico passa pelas mesmas mãos, na mesma ordem, do pão da base à tampa. Cerca de quatro minutos entre a chapa e o balcão.</p>
+    </div>
+    <div class="steps" aria-hidden="true"><span class="pilha"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>7 CAMADAS · 4 MIN · 1 ORDEM</div>
+  </div>
+  <figure>{{PIC maos | sizes=(max-width:900px) 100vw, 55vw | alt=Duas mãos a pousar o Clássico no balcão, com luz quente de sala ao fundo.}}</figure>
+</section>
+
+<!-- FECHO -->
+<section class="take" aria-labelledby="h-take">
+  <div><h2 id="h-take">Agora, inteiro outra vez.</h2><p>Leve o Clássico para casa, montado pela mesma ordem que acabou de ver.</p></div>
+  <div><span class="price">9,50 €</span><div class="actions"><button class="btn btn-ink" type="button" data-add="classico">Adicionar à encomenda</button><a class="btn btn-line" href="{{P:carta}}">Ver a carta</a></div></div>
+</section>

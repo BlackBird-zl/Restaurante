@@ -1,0 +1,69 @@
+<!--meta {"title":"A Casa · horário, morada e contacto · Miolo","desc":"A Casa Miolo em Lisboa: horário de almoço e jantar, morada e contacto. Uma sala, um balcão e uma chapa a 230 °C.","css":["casa"],"js":["casa"],"head":"dark"} -->
+<section class="casa-top" aria-labelledby="h1">
+  <div class="tx">
+    <p class="chapter">05 · Lugar</p>
+    <h1 id="h1">A Casa.</h1>
+    <p>Uma sala, um balcão de madeira e uma chapa a 230 °C, debaixo dos candeeiros.</p>
+    <div class="quick"><a href="#horario">Horário</a><a href="#onde">Onde</a><a href="#contacto">Contacto</a></div>
+  </div>
+  <figure>{{PIC casa-luz | sizes=(max-width:900px) 100vw, 58vw | alt=Candeeiros suspensos acesos sobre o balcão de madeira, com o Clássico por baixo. | eager}}</figure>
+</section>
+
+<section class="about" aria-label="Sobre a casa">
+  <p class="big">Aqui faz-se <b>um hambúrguer</b> e faz-se sempre da mesma maneira. O resto da carta existe <b>à volta dele</b>.</p>
+  <p class="side">Pede-se ao balcão ou encomenda-se para levar. Ao almoço a sala enche de luz de janela; ao jantar ficam os candeeiros e a madeira.</p>
+</section>
+
+<section class="hours-s" id="horario" aria-labelledby="h-hor">
+  <h2 id="h-hor">Horário</h2>
+  <div class="services">
+    <article class="svc" aria-labelledby="h-alm">
+      <img src="{{R}}assets/img/sc-janela-1254.webp" srcset="{{R}}assets/img/sc-janela-750.webp 750w, {{R}}assets/img/sc-janela-1254.webp 1254w" sizes="(max-width:760px) 100vw, 50vw" width="1254" height="1254" alt="" loading="lazy" decoding="async" style="object-position:50% 20%">
+      <h3 id="h-alm">Almoço</h3>
+      <div class="times"><div><span>Terça a sábado</span><span>12h00–15h00</span></div><div><span>Domingo</span><span>12h00–16h00</span></div></div>
+    </article>
+    <article class="svc" aria-labelledby="h-jan">
+      {{PIC casa-noite | sizes=(max-width:760px) 100vw, 50vw | alt=}}
+      <h3 id="h-jan">Jantar</h3>
+      <div class="times"><div><span>Terça a quinta</span><span>19h00–23h00</span></div><div><span>Sexta e sábado</span><span>19h00–24h00</span></div></div>
+    </article>
+  </div>
+  <table class="week" id="week">
+    <caption>Semana completa · segunda-feira fechado</caption>
+    <thead><tr><th scope="col">Dia</th><th scope="col">Almoço</th><th scope="col">Jantar</th></tr></thead>
+    <tbody>
+      <tr data-d="1"><th scope="row">Segunda</th><td class="off">Fechado</td><td class="off">Fechado</td></tr>
+      <tr data-d="2"><th scope="row">Terça</th><td>12h00–15h00</td><td>19h00–23h00</td></tr>
+      <tr data-d="3"><th scope="row">Quarta</th><td>12h00–15h00</td><td>19h00–23h00</td></tr>
+      <tr data-d="4"><th scope="row">Quinta</th><td>12h00–15h00</td><td>19h00–23h00</td></tr>
+      <tr data-d="5"><th scope="row">Sexta</th><td>12h00–15h00</td><td>19h00–24h00</td></tr>
+      <tr data-d="6"><th scope="row">Sábado</th><td>12h00–15h00</td><td>19h00–24h00</td></tr>
+      <tr data-d="0"><th scope="row">Domingo</th><td>12h00–16h00</td><td class="off">—</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="where" aria-label="Morada e contacto">
+  <div id="onde">
+    <h2>Onde estamos</h2>
+    <p class="addr">Rua de Demonstração, 00<br>1000-000 Lisboa</p>
+    <p class="fake">Morada fictícia: o Miolo é uma casa de demonstração.</p>
+    <button class="copy" type="button" data-copy="Rua de Demonstração, 00, 1000-000 Lisboa">Copiar morada</button>
+  </div>
+  <div id="contacto">
+    <h2>Contacto</h2>
+    <p class="contact-line mono">+351 210 000 000</p>
+    <button class="copy" type="button" data-copy="+351 210 000 000">Copiar número</button>
+    <p class="contact-line">ola@miolo.example</p>
+    <button class="copy" type="button" data-copy="ola@miolo.example">Copiar email</button>
+  </div>
+</section>
+
+<section class="bye" aria-labelledby="h-bye">
+  {{PIC cta | sizes=100vw | alt=}}
+  <div>
+    <h2 id="h-bye">Até já.</h2>
+    <p>Se preferir não esperar, encomende agora e levante ao balcão.</p>
+    <div class="actions"><a class="btn btn-ched" href="{{P:encomendar}}">Encomendar para recolha</a><a class="btn btn-light" href="{{P:carta}}">Ver a carta</a></div>
+  </div>
+</section>

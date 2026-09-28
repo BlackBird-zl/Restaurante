@@ -1,0 +1,85 @@
+<!--meta {"title":"Miolo · Hamburgueria em Lisboa","desc":"Miolo, hamburgueria em Lisboa. O Clássico: sete camadas montadas à mão, pela mesma ordem. Veja a carta e encomende para recolha.","css":["home"],"js":["home"],"head":"light","preload":[{"k":"hero","media":"(min-width:901px)"},{"k":"hero-m","media":"(max-width:900px)"}]} -->
+<!-- 1 · HERO (inalterado) -->
+<section class="hero" aria-labelledby="h1">
+  {{PIC hero | mobile=hero-m | class=hero-img | sizes=100vw | alt=O Clássico de frente sobre uma bancada clara, deslocado para a direita, com brioche de sésamo, alface frisada, tomate, cheddar derretido e carne grelhada. | eager}}
+  <div class="hero-copy">
+    <h1 id="h1"><span class="l"><span>Sete camadas.</span></span><span class="l"><span>Nenhuma a mais.</span></span></h1>
+    <div class="hero-foot">
+      <p class="hero-lede">Pão macio. Carne suculenta. Ingredientes de verdade. Montado à mão, pela mesma ordem, sempre.</p>
+      <div class="actions">
+        <a class="btn btn-ink" href="{{P:encomendar}}">Encomendar para recolha <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-line" href="{{P:carta}}">Ver a carta</a>
+      </div>
+      <p class="hero-price"><span class="mono">N.º 01</span><strong>O Clássico</strong><span class="p">9,50 €</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · MANIFESTO -->
+<section class="manifesto" aria-label="Como fazemos">
+  <p>Picamos <b>150 g</b><span class="n">ACÉM + PEITO</span> às nove da manhã. O brioche <span class="pill" style="background-image:url({{R}}assets/img/lupa-pao-800.webp)" role="img" aria-label="sésamo no pão"></span> fermenta <b>12 horas</b>. A chapa está a <b>230 °C</b>. Dois minutos por lado <span class="pill" style="background-image:url({{R}}assets/img/lupa-carne-800.webp)" role="img" aria-label="crosta da carne"></span> e o cheddar derrete na última volta.</p>
+  <div class="manifesto-meta">
+    <span>Um só hambúrguer serve de régua para tudo o resto.<span class="strip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span>
+    <span class="mono" style="font-size:12px">Rua de Demonstração, 00 · Lisboa</span>
+  </div>
+</section>
+
+<!-- 3 · O CLÁSSICO (pré-visualização) -->
+<section class="pv-cl" aria-labelledby="h-pvcl">
+  <figure class="ph" style="margin:0" id="pvPh">
+    {{PIC home-macro | sizes=(max-width:900px) 100vw, 56vw | alt=Cheddar derretido sobre a carne grelhada, com o pão tostado por baixo.}}
+    <img class="alt" id="pvAlt" alt="" width="800" height="800" loading="lazy" decoding="async">
+    <span class="lab" id="pvLab">Cheddar · ao perto</span>
+  </figure>
+  <div>
+    <p class="chapter">01 · O Clássico</p>
+    <h2 id="h-pvcl">Sete camadas, uma de cada vez.</h2>
+    <ol class="stack" id="stack" aria-label="As sete camadas do Clássico"></ol>
+    <a class="btn btn-ink" href="{{P:classico}}">Abrir o Clássico <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </div>
+</section>
+
+<!-- 4 · ATMOSFERAS (pré-visualização) -->
+<section class="pv-at" id="pvAt" aria-labelledby="h-pvat">
+  <div class="pv-at-head">
+    <div><p class="chapter">02 · Atmosferas</p><h2 id="h-pvat">O mesmo Clássico,<br>quatro luzes.</h2></div>
+    <a class="btn btn-light" href="{{P:atmosferas}}">Ver as quatro atmosferas</a>
+  </div>
+  <div class="strip4" id="strip4">
+    <a href="{{P:atmosferas}}#estudio" data-bg="#CBB9AC" data-k="estudio"><img src="{{R}}assets/img/sc-estudio-750.webp" width="750" height="750" alt="O Clássico em luz de estúdio." loading="lazy" decoding="async"><span class="t"><strong>Estúdio</strong><span>11H00</span></span></a>
+    <a href="{{P:atmosferas}}#janela" data-bg="#8C7F5E" data-k="janela"><img src="{{R}}assets/img/sc-janela-750.webp" width="750" height="750" alt="O Clássico em luz de janela." loading="lazy" decoding="async"><span class="t"><strong>Janela</strong><span>13H15</span></span></a>
+    <a href="{{P:atmosferas}}#balcao" data-bg="#5B3A20" data-k="balcao"><img src="{{R}}assets/img/sc-balcao-750.webp" width="750" height="750" alt="O Clássico no balcão de madeira." loading="lazy" decoding="async"><span class="t"><strong>Balcão</strong><span>19H30</span></span></a>
+    <a href="{{P:atmosferas}}#noite" data-bg="#24160A" data-k="noite" class="on"><img src="{{R}}assets/img/sc-noite-750.webp" width="750" height="750" alt="O Clássico à noite, com bokeh." loading="lazy" decoding="async"><span class="t"><strong>Noite</strong><span>21H40</span></span></a>
+  </div>
+</section>
+
+<!-- 5 · POR DENTRO / MÃOS -->
+<section class="duo" aria-label="Por dentro e montado à mão">
+  <a href="{{P:classico}}#por-dentro">{{PIC cortado | sizes=(max-width:640px) 100vw, 50vw | alt=O Clássico cortado ao meio, com a carne ao ponto e as camadas no lugar.}}<span class="t"><span>O Clássico · capítulo 4</span><strong>Por dentro.</strong></span></a>
+  <a href="{{P:classico}}#maos">{{PIC maos | sizes=(max-width:640px) 100vw, 50vw | alt=Duas mãos a pousar o Clássico no balcão.}}<span class="t"><span>O Clássico · capítulo 5</span><strong>Montado à mão.</strong></span></a>
+</section>
+
+<!-- 6 · CARTA (pré-visualização) -->
+<section class="pv-ca" aria-labelledby="h-pvca">
+  <figure class="ph" style="margin:0">{{PIC mesa | sizes=(max-width:900px) 100vw, 50vw | alt=O Clássico visto ligeiramente de cima, em papel sobre uma tábua, com maionese ao lado.}}</figure>
+  <div>
+    <p class="chapter">03 · Carta</p>
+    <h2 id="h-pvca">Escolha.<br>Nós montamos.</h2>
+    <ul class="mini-menu" id="miniMenu"></ul>
+    <a class="link-arrow" href="{{P:carta}}">Ver carta completa <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </div>
+</section>
+
+<!-- 7 · FECHO -->
+<section class="finale" aria-labelledby="h-fin">
+  {{PIC cta | mobile=cta-m | class=finale-img | sizes=100vw | alt=O Clássico numa mesa de madeira escura, com luz âmbar e o bokeh da sala ao fundo.}}
+  <div class="tx">
+    <p class="chapter" style="color:#E2CDB5">04 · Encomendar</p>
+    <h2 id="h-fin">O Clássico espera por si.</h2>
+    <p>Encomende agora e levante ao balcão, ainda com o cheddar a derreter.</p>
+    <div class="actions">
+      <a class="btn btn-ched" href="{{P:encomendar}}">Começar encomenda</a>
+      <a class="btn btn-light" href="{{P:carta}}">Ver a carta</a>
+    </div>
+  </div>
+</section>

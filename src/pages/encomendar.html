@@ -1,0 +1,59 @@
+<!--meta {"title":"Encomendar para recolha · Miolo","desc":"Encomende na Miolo para recolha ao balcão: escolha os artigos, a hora e o nome para o talão. Demonstração, nada é enviado nem cobrado.","css":["encomendar"],"js":["encomendar"],"head":"dark"} -->
+<section class="enc-top" aria-labelledby="h1">
+  <div class="tx">
+    <p class="chapter">04 · Ação</p>
+    <h1 id="h1">Encomendar.</h1>
+    <p>Três passos e levanta ao balcão. O pedido que fez na carta já está aqui.</p>
+    <ol class="steps-top"><li>1 · O PEDIDO</li><li>2 · A HORA</li><li>3 · O NOME</li></ol>
+  </div>
+  <figure>{{PIC tabua | sizes=(max-width:900px) 100vw, 58vw | alt=Mãos a acertar o Clássico numa tábua de madeira escura antes de sair para o balcão. | eager}}</figure>
+</section>
+
+<section class="flow" aria-label="Encomenda">
+  <div class="flow-in">
+    <form id="orderForm" novalidate>
+      <div class="step">
+        <div class="step-h"><span class="mono">1</span><h2>O pedido</h2></div>
+        <ul class="lines" id="lines"></ul>
+        <p class="hint">Quer juntar mais? <a href="{{P:carta}}">Voltar à carta</a> — o pedido fica guardado neste navegador.</p>
+      </div>
+      <div class="step">
+        <div class="step-h"><span class="mono">2</span><h2>Hora de recolha</h2></div>
+        <div class="slots" id="slots" role="group" aria-label="Hora de recolha"></div>
+        <p class="hint" id="slotHint">Contamos cerca de 20 minutos por encomenda.</p>
+      </div>
+      <div class="step">
+        <div class="step-h"><span class="mono">3</span><h2>Quem vem buscar</h2></div>
+        <div class="fields">
+          <div><label for="f-name">Nome para o talão</label><input id="f-name" autocomplete="given-name" placeholder="Rita"><p class="err" id="e-name" hidden>Escreva um nome para chamarmos ao balcão.</p></div>
+          <div><label for="f-phone">Telemóvel</label><input id="f-phone" inputmode="tel" autocomplete="tel" placeholder="912 345 678"><p class="err" id="e-phone" hidden>Use 9 dígitos, por exemplo 912 345 678.</p></div>
+        </div>
+      </div>
+    </form>
+    <aside class="ticket" aria-labelledby="t-title">
+      <div class="t-head"><span class="logo"><span class="pilha" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Miolo</span><span class="mono" style="font-size:11px" id="t-title">TALÃO DE RECOLHA</span></div>
+      <div id="t-body">
+        <ul class="t-rows" id="tRows"></ul>
+        <div class="t-meta"><div><span>RECOLHA</span><span id="tSlot">—</span></div><div><span>NOME</span><span id="tName">—</span></div></div>
+        <div class="t-tot">
+          <div><span>SUBTOTAL</span><span id="tSub">0,00 €</span></div>
+          <div><span>EMBALAGEM</span><span id="tPack">0,00 €</span></div>
+          <div class="grand"><span>TOTAL</span><span id="tTot">0,00 €</span></div>
+        </div>
+        <button class="btn btn-ink" type="submit" form="orderForm" id="confirm">Confirmar encomenda</button>
+        <p class="err" id="e-cart" hidden style="color:#9B1C08">Adicione pelo menos um artigo.</p>
+      </div>
+      <div id="t-done" hidden>
+        <div class="done" role="status" tabindex="-1" id="doneBox">
+          <span class="mono" style="font-size:11px">NÚMERO DO PEDIDO</span>
+          <span class="code" id="dCode">M-000</span>
+          <span class="when" id="dWhen"></span>
+          <span id="dMsg"></span>
+          <div class="barcode" aria-hidden="true"></div>
+        </div>
+        <button class="btn btn-line" type="button" id="again" style="width:100%;margin-top:16px">Fazer nova encomenda</button>
+      </div>
+      <p class="demo">Demonstração: o Miolo é uma casa fictícia. Nada é enviado nem cobrado.</p>
+    </aside>
+  </div>
+</section>

@@ -1,72 +1,90 @@
-import json,re,os,shutil,base64
-R='/home/claude/miolo3'
-meta=json.load(open(R+'/img/meta.json'))
-src=open(R+'/src/template.html',encoding='utf-8').read()
-def srcset(k,ext): return ', '.join(f'img/{k}-{w}.{ext} {w}w' for w in sorted(meta[k]['sizes']))
-def pic(m):
-    parts=[x.strip() for x in m.group(1).split('|')]
-    k=parts[0]; o={'eager':False}
-    for x in parts[1:]:
-        if x=='eager': o['eager']=True
-        elif '=' in x: a,b=x.split('=',1); o[a.strip()]=b.strip()
-    sizes=o.get('sizes','100vw'); mk=meta[k]; out='<picture>'
-    if 'mobile' in o:
-        mm=o['mobile']
-        out+=f'<source media="(max-width:900px)" type="image/avif" srcset="{srcset(mm,"avif")}" sizes="100vw"><source media="(max-width:900px)" type="image/webp" srcset="{srcset(mm,"webp")}" sizes="100vw">'
-    out+=f'<source type="image/avif" srcset="{srcset(k,"avif")}" sizes="{sizes}">'
-    cls=f' class="{o["class"]}"' if 'class' in o else ''
-    load=' fetchpriority="high"' if o['eager'] else ' loading="lazy"'
-    out+=f'<img{cls} src="img/{k}-{mk["w"]}.webp" srcset="{srcset(k,"webp")}" sizes="{sizes}" width="{mk["w"]}" height="{mk["h"]}" alt="{o.get("alt","")}"{load} decoding="async"></picture>'
+#!/usr/bin/env python3
+"""Miolo · build estático sem dependências.
+Junta cabeçalho/rodapé partilhados às páginas, expande {{PIC ...}} em <picture> (AVIF + WebP + srcset)
+e escreve:
+  dist/                 site com URLs limpas (/, /o-classico/, /atmosferas/, /carta/, /encomendar/, /casa/)
+  dist-artifact/        a mesma coisa com ligações explícitas a index.html (para pré-visualização sem servidor)
+Uso: python3 build.py
+"""
+import json, re, os, shutil
+ROOT = os.path.dirname(os.path.abspath(__file__))
+SRC = os.path.join(ROOT, 'src')
+SITE = 'https://miolo.example'
+PAGES = {  # nome: pasta ('' = raiz)
+  'home': '', 'classico': 'o-classico', 'atmosferas': 'atmosferas', 'carta': 'carta', 'encomendar': 'encomendar', 'casa': 'casa'}
+meta = json.load(open(os.path.join(SRC, 'assets/img/meta.json')))
+header = open(os.path.join(SRC, 'partials/header.html'), encoding='utf-8').read()
+footer = open(os.path.join(SRC, 'partials/footer.html'), encoding='utf-8').read()
+FONTS = 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap'
+
+def srcset(R, k, ext):
+    return ', '.join(f'{R}assets/img/{k}-{w}.{ext} {w}w' for w in sorted(meta[k]['sizes']))
+
+def build(mode):
+    out = os.path.join(ROOT, 'dist' if mode == 'site' else 'dist-artifact')
+    shutil.rmtree(out, ignore_errors=True); os.makedirs(out)
+    shutil.copytree(os.path.join(SRC, 'assets'), os.path.join(out, 'assets'), ignore=shutil.ignore_patterns('meta.json'))
+    for name, folder in PAGES.items():
+        raw = open(os.path.join(SRC, 'pages', name + '.html'), encoding='utf-8').read()
+        m = re.match(r'<!--meta\s*(\{.*?\})\s*-->\s*', raw, re.S); cfg = json.loads(m.group(1)); body = raw[m.end():]
+        R = '../' if folder else './'
+        def link(p):
+            f = PAGES[p]
+            if mode == 'site': return (R + f + '/') if f else R
+            return (R + f + '/index.html') if f else R + 'index.html'
+        def link_art(p):
+            f = PAGES[p]
+            if f: return R + f + '/index.html'
+            return R + 'index.html'
+        L = link if mode == 'site' else link_art
+        def pic(mm):
+            parts = [x.strip() for x in mm.group(1).split('|')]; k = parts[0]; o = {'eager': False}
+            for x in parts[1:]:
+                if x == 'eager': o['eager'] = True
+                elif '=' in x: a, b = x.split('=', 1); o[a.strip()] = b.strip()
+            sizes = o.get('sizes', '100vw'); mk = meta[k]; s = '<picture>'
+            if 'mobile' in o:
+                mo = o['mobile']
+                s += f'<source media="(max-width:900px)" type="image/avif" srcset="{srcset(R,mo,"avif")}" sizes="100vw"><source media="(max-width:900px)" type="image/webp" srcset="{srcset(R,mo,"webp")}" sizes="100vw">'
+            s += f'<source type="image/avif" srcset="{srcset(R,k,"avif")}" sizes="{sizes}">'
+            cls = f' class="{o["class"]}"' if 'class' in o else ''
+            load = ' fetchpriority="high"' if o['eager'] else ' loading="lazy"'
+            s += f'<img{cls} src="{R}assets/img/{k}-{mk["w"]}.webp" srcset="{srcset(R,k,"webp")}" sizes="{sizes}" width="{mk["w"]}" height="{mk["h"]}" alt="{o.get("alt","")}"{load} decoding="async"></picture>'
+            return s
+        def fill(t):
+            t = re.sub(r'\{\{PIC (.*?)\}\}', pic, t)
+            t = re.sub(r'\{\{P:(\w+)\}\}', lambda x: L(x.group(1)), t)
+            t = re.sub(r'\{\{CUR:(\w+)\}\}', lambda x: ' aria-current="page"' if x.group(1) == name else '', t)
+            t = t.replace('{{R}}', R)
+            return t
+        pre = ''
+        for p in cfg.get('preload', []):
+            k, media = p['k'], p.get('media')
+            pre += f'<link rel="preload" as="image" type="image/avif"{" media=%s" % chr(34)+media+chr(34) if media else ""} imagesrcset="{srcset(R,k,"avif")}" imagesizes="{p.get("sizes","100vw")}">\n'
+        css = ''.join(f'<link rel="stylesheet" href="{R}assets/css/{c}.css">\n' for c in ['miolo'] + cfg.get('css', []))
+        js = ''.join(f'<script src="{R}assets/js/{j}.js" defer></script>\n' for j in ['data', 'miolo'] + cfg.get('js', []))
+        canon = SITE + '/' + (folder + '/' if folder else '')
+        head_inner = (f'<title>{cfg["title"]}</title>\n<meta name="description" content="{cfg["desc"]}">\n'
+            f'<link rel="canonical" href="{canon}">\n<meta property="og:title" content="{cfg["title"]}">\n<meta property="og:description" content="{cfg["desc"]}">\n'
+            f'<meta property="og:type" content="website">\n<meta property="og:locale" content="pt_PT">\n'
+            f'<meta name="theme-color" content="#17120E">\n'
+            f'{pre}<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+            f'<link rel="stylesheet" href="{FONTS}">\n{css}{js}')
+        page_body = f'<body data-page="{name}" data-head="{cfg.get("head","light")}">\n' + fill(header) + f'<main id="conteudo">\n{fill(body)}\n</main>\n' + fill(footer) + '</body>\n'
+        if mode == 'artifact' and name == 'home':
+            # a página principal do artefacto é embrulhada pelo servidor: sem doctype/head próprios
+            doc = '<meta charset="utf-8">\n' + head_inner + page_body.replace('<body ', '<div class="bodyattrs" ', 1)
+            doc = doc.replace('<div class="bodyattrs" data-page="home" data-head="light">', '<script>(function s(){if(!document.body)return document.addEventListener("DOMContentLoaded",s);document.body.dataset.page="home";document.body.dataset.head="light";})();</script>', 1)
+            doc = doc.rsplit('</body>', 1)[0]
+        else:
+            doc = ('<!DOCTYPE html>\n<html lang="pt-PT">\n<head>\n<meta charset="utf-8">\n'
+                   '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' + head_inner + '</head>\n' + page_body + '</html>\n')
+        assert '{{' not in doc, (name, re.findall(r'\{\{[^}]*\}\}', doc)[:3])
+        d = os.path.join(out, folder); os.makedirs(d, exist_ok=True)
+        open(os.path.join(d, 'index.html'), 'w', encoding='utf-8').write(doc)
+    if mode == 'site':
+        json.dump({"cleanUrls": True, "trailingSlash": True}, open(os.path.join(out, 'vercel.json'), 'w'), indent=2)
     return out
-page=re.sub(r'\{\{PIC (.*?)\}\}',pic,src)
-# preload critical hero image (desktop + mobile)
-pre=('<link rel="preload" as="image" type="image/avif" media="(min-width:901px)" imagesrcset="'+srcset('hero','avif')+'" imagesizes="100vw">\n'
-     '<link rel="preload" as="image" type="image/avif" media="(max-width:900px)" imagesrcset="'+srcset('hero-m','avif')+'" imagesizes="100vw">\n')
-page=page.replace('<link rel="preconnect" href="https://fonts.googleapis.com">',pre+'<link rel="preconnect" href="https://fonts.googleapis.com">',1)
-assert '{{' not in page
-open(R+'/index.html','w',encoding='utf-8').write(page)
-# files used
-used=sorted(set(re.findall(r'img/([\w-]+\.(?:webp|avif))',page)))
-# JS-built names
-for k in ['estudio','janela','balcao','noite']:
-    for w in (750,1254): used.append(f'sc-{k}-{w}.webp')
-for z in ['pao','maionese','alface','cheddar','carne','base']: used.append(f'lupa-{z}-800.webp')
-used.append('lupa-tomate-700.webp'); used=sorted(set(used))
-missing=[u for u in used if not os.path.exists(R+'/img/'+u)]
-print('used',len(used),'missing',missing)
-# standalone package
-head='<!DOCTYPE html>\n<html lang="pt-PT">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
-i=page.index('</style>')+len('</style>')
-sa=head+page[:i]+'\n</head>\n<body>\n'+page[i:].lstrip()+'\n</body>\n</html>\n'
-out=R+'/out/miolo-site'; shutil.rmtree(R+'/out',ignore_errors=True); os.makedirs(out+'/img')
-open(out+'/index.html','w',encoding='utf-8').write(sa)
-for u in used: shutil.copy(R+'/img/'+u,out+'/img/'+u)
-shutil.copytree(R+'/src',out+'/src')
-shutil.copy(R+'/build.py',out+'/build.py')
-json.dump(meta,open(out+'/img/meta.json','w'))
-# single file: drop <source>, srcset, preload; embed largest webp only
-single=re.sub(r'<source [^>]*>','',sa)
-single=re.sub(r' srcset="[^"]*"','',single); single=re.sub(r'<link rel="preload"[^>]*>\n','',single)
-b64=lambda f:'data:image/webp;base64,'+base64.b64encode(open(R+'/img/'+f,'rb').read()).decode()
-# JS: scenes & lupa dynamic names
-single=single.replace("const SRCSET = k => `img/sc-${k}-750.webp 750w, img/sc-${k}-1254.webp 1254w`;","const SRCSET = k => IMG['sc-'+k+'-1254.webp']+' 1254w';")
-single=single.replace("im.src='img/sc-'+s.k+'-1254.webp'","im.src=IMG['sc-'+s.k+'-1254.webp']").replace("back.src='img/sc-'+s.k+'-1254.webp'","back.src=IMG['sc-'+s.k+'-1254.webp']")
-single=single.replace("src='img/lupa-'+l.z+'-'+(l.z==='tomate'?700:800)+'.webp'","src=IMG['lupa-'+l.z+'-'+(l.z==='tomate'?700:800)+'.webp']")
-single=single.replace("x.src='img/lupa-'+l.z+'-'+(l.z==='tomate'?700:800)+'.webp'","x.src=IMG['lupa-'+l.z+'-'+(l.z==='tomate'?700:800)+'.webp']")
-single=single.replace("'url(img/sc-estudio-1254.webp)'","'url('+IMG['sc-estudio-1254.webp']+')'")
-dyn=[u for u in used if u.startswith(('sc-','lupa-')) and u.endswith('.webp') and ('-750' not in u)]
-js='const IMG='+json.dumps({u:b64(u) for u in dyn})+';\n'
-single=single.replace('<script>\n(function(){','<script>\n'+js+'(function(){',1)
-def emb(m):
-    f=m.group(1)
-    return b64(f)
-single=re.sub(r'img/([\w-]+\.webp)(?=["\)])',lambda m: b64(m.group(1)),single.split('const IMG=')[0])+('const IMG='+single.split('const IMG=',1)[1] if 'const IMG=' in single else '')
-# the IMG object's lupa data-src etc. after split: handle remaining refs in the script part
-tail=single.split('const IMG=',1)
-if len(tail)>1:
-    body=tail[1]
-    obj,rest=body.split(';\n',1)
-    rest=re.sub(r"img/([\w-]+\.webp)",lambda m: b64(m.group(1)),rest)
-    single=tail[0]+'const IMG='+obj+';\n'+rest
-open(R+'/out/Miolo_v2-1_ficheiro_unico.html','w',encoding='utf-8').write(single)
-print('single MB',round(len(single)/1e6,2),'left refs',len(re.findall(r"img/[\w-]+\.(webp|avif)",single)))
+
+if __name__ == '__main__':
+    for m in ('site', 'artifact'): print('built', build(m))

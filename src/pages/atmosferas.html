@@ -1,0 +1,48 @@
+<!--meta {"title":"Atmosferas · Miolo","desc":"O mesmo Clássico em quatro luzes: Estúdio, Janela, Balcão e Noite. Escolha a hora e veja como muda a luz, a superfície e a cor.","css":["atmosferas"],"js":["atmosferas"],"head":"dark"} -->
+<section class="atm" id="atm" aria-labelledby="h1">
+  <div class="atm-grid">
+    <div class="atm-intro">
+      <p class="chapter">02 · Luz e contexto</p>
+      <h1 id="h1">Atmosferas: o mesmo Clássico, quatro luzes.</h1>
+      <div>
+        <p class="scene-name" id="sceneName" aria-live="polite"><span>Noite</span></p>
+        <p class="scene-hour" id="sceneHour">21H40 · JANTAR</p>
+        <dl class="ficha" id="ficha"></dl>
+        <div class="kelvin" aria-hidden="true"><div class="kbar"><span class="mk" id="kMk"></span></div><div class="sc"><span>2700 K · QUENTE</span><span id="kVal">—</span><span>5500 K · NEUTRA</span></div></div>
+        <p class="scene-line" id="sceneLine"></p>
+      </div>
+    </div>
+    <figure class="frame" id="frame">
+      <img id="imgA" src="{{R}}assets/img/sc-noite-1254.webp" srcset="{{R}}assets/img/sc-noite-750.webp 750w, {{R}}assets/img/sc-noite-1254.webp 1254w" sizes="(max-width:900px) 100vw, 56vw" width="1254" height="1254" alt="O Clássico numa tábua escura, com luz âmbar e bokeh quente ao fundo." fetchpriority="high" decoding="async">
+      <img id="imgB" class="out" alt="" aria-hidden="true" width="1254" height="1254" decoding="async" sizes="(max-width:900px) 100vw, 56vw">
+      <figcaption class="cap"><span class="pilha" aria-hidden="true" style="width:14px"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span id="capTxt">NOITE · 21H40</span></figcaption>
+    </figure>
+  </div>
+  <div class="day">
+    <div class="axis" aria-hidden="true"></div>
+    <div class="ticks" aria-hidden="true" id="ticks"></div>
+    <ul class="scenes" id="scenes" role="radiogroup" aria-label="Escolher atmosfera"></ul>
+    <p class="hint">Setas do teclado ou deslizar sobre a fotografia para mudar a luz</p>
+  </div>
+</section>
+
+<section class="same" aria-labelledby="h-same">
+  <p class="chapter" style="color:var(--muted)">O que muda e o que fica</p>
+  <h2 id="h-same">Muda a luz. O Clássico fica.</h2>
+  <div class="same-grid">
+    <div><h3>Muda com a hora</h3><ul>
+      <li><strong>Luz</strong><span>Softbox → janela → candeeiros → pontual</span></li>
+      <li><strong>Superfície</strong><span>Fundo neutro → bancada → madeira → tábua</span></li>
+      <li><strong>Cor da luz</strong><span>5500 K → 2700 K</span></li>
+    </ul></div>
+    <div><h3>Fica sempre igual</h3><ul>
+      <li><strong>150 g</strong><span>Novilho, acém e peito</span></li>
+      <li><strong>7 camadas</strong><span>Pela mesma ordem</span></li>
+      <li><strong>9,50 €</strong><span>Ao almoço e ao jantar</span></li>
+    </ul></div>
+  </div>
+  <div class="actions">
+    <a class="btn btn-ink" href="{{P:encomendar}}">Encomendar para recolha</a>
+    <a class="btn btn-line" href="{{P:classico}}">Abrir o Clássico</a>
+  </div>
+</section>
