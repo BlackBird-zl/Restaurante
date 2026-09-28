@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Fotografia pendente: Hero Home">
-<defs><pattern id="g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0 L0 24" stroke="#252820" stroke-opacity="0.045" stroke-width="1"/></pattern></defs>
-<rect width="1600" height="900" fill="#E9E4D8"/><rect width="1600" height="900" fill="url(#g)"/>
-<g fill="none" stroke="#252820" stroke-opacity="0.34" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="800" cy="419" rx="256.68" ry="156.24"/><ellipse cx="800" cy="419" rx="167.4" ry="100.44"/></g>
-</svg>

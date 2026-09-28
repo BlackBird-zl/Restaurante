@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" width="1200" height="1500" role="img" aria-label="Fotografia pendente: Porto tónico">
-<defs><pattern id="g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0 L0 24" stroke="#252820" stroke-opacity="0.045" stroke-width="1"/></pattern></defs>
-<rect width="1200" height="1500" fill="#E6E2D6"/><rect width="1200" height="1500" fill="url(#g)"/>
-<g fill="none" stroke="#252820" stroke-opacity="0.34" stroke-width="8.266666666666667" stroke-linecap="round" stroke-linejoin="round"><rect x="518.16" y="426.28" width="163.68" height="565.44" rx="14.88"/><path d="M518.16 560.2 L681.84 560.2"/></g>
-</svg>
