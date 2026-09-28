@@ -30,7 +30,7 @@ A URL raiz mostra **Pátio do Ferro**. O segundo preset pode ser visto em:
 - Formulário de reserva em modo demonstração (não persiste nem envia dados)
 - Contexto de mesa em modo consulta/read-only
 - Dois restaurantes/presets com dados locais isolados
-- 32 slots de fotografia preparados (placeholders atuais)
+- 32 slots de fotografia preenchidos com fotografia real licenciada (Pexels)
 
 ## O que foi deliberadamente desacoplado
 

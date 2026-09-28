@@ -8,6 +8,22 @@ import type { SiteDTO } from '@/modules/site/types';
 const fixtures = [patio, balcao] as const;
 type Fixture = (typeof fixtures)[number];
 
+
+const pexelsPhotoIds: Record<string, string> = {
+  '01': '36125043', '02': '17056975', '03': '14108254', '04': '36430075',
+  '05': '30729111', '06': '33389174', '07': '8583123', '08': '35258949',
+  '09': '35424017', '10': '17205215', '11': '20323432', '12': '33573597',
+  '13': '38681384', '14': '34283283', '15': '10134725', '16': '14537701',
+  '17': '6612869', '18': '27998840', '19': '8272622', '20': '14270807',
+  '21': '36183197', '22': '17322388', '23': '16021245', '24': '33746241',
+  '25': '1850008', '26': '6542761', '27': '8879617', '28': '5659578',
+  '29': '9386469', '30': '225236', '31': '37029476', '32': '36617897',
+};
+
+function pexelsUrl(id: string, width = 1600): string {
+  return `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${width}`;
+}
+
 const mediaId = (id: string) => `media-${id}`;
 const itemId = (id: string) => id;
 
@@ -32,16 +48,21 @@ function patioMedia(): Record<string, MediaDTO> {
   const out: Record<string, MediaDTO> = {};
   for (const a of visualAssets) {
     const [width, height] = ratioDims[a.ratio] ?? [1200, 1200];
-    const file = `${a.id}-${a.slug}.placeholder.svg`;
+    const photoId = pexelsPhotoIds[a.id];
+    if (!photoId) throw new Error(`Missing licensed media mapping for asset ${a.id}`);
     out[mediaId(a.id)] = {
       id: mediaId(a.id),
-      key: `static/demo-assets/patio-do-ferro/${a.id}-${a.slug}`,
+      key: pexelsUrl(photoId, 1600),
       alt: a.alt,
       width, height,
       focalX: 0.5, focalY: 0.5,
-      sourceType: 'placeholder',
-      mime: 'image/svg+xml',
-      variants: [{ role: 'original', key: `static/demo-assets/patio-do-ferro/${file}`, mime: 'image/svg+xml', width, height }],
+      sourceType: 'licensed',
+      mime: 'image/jpeg',
+      variants: [
+        { role: a.purpose === 'hero' ? 'hero_desktop' : 'detail', key: pexelsUrl(photoId, 1600), mime: 'image/jpeg', width, height },
+        { role: 'card', key: pexelsUrl(photoId, 900), mime: 'image/jpeg', width: Math.min(width, 900), height: Math.round(Math.min(width, 900) * (height / width)) },
+        { role: 'thumb', key: pexelsUrl(photoId, 420), mime: 'image/jpeg', width: Math.min(width, 420), height: Math.round(Math.min(width, 420) * (height / width)) },
+      ],
     };
   }
   return out;

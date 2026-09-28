@@ -19,7 +19,7 @@ export function pageMetadata(ctx: PublicTenantContext, site: SiteDTO, opts: {
     robots: noindex ? { index: false, follow: false } : { index: true, follow: true },
     openGraph: {
       title: opts.title ?? name, description: opts.description, siteName: name, locale: 'pt_PT', type: 'website',
-      url: canonical, images: img ? [{ url: `${ctx.origin}${mediaKeyUrl(img.key)}`, width: img.width, height: img.height }] : undefined,
+      url: canonical, images: img ? [{ url: mediaKeyUrl(img.key).startsWith('http') ? mediaKeyUrl(img.key) : `${ctx.origin}${mediaKeyUrl(img.key)}`, width: img.width, height: img.height }] : undefined,
     },
     other: { 'format-detection': 'telephone=no' },
   };

@@ -4,6 +4,7 @@ const STORAGE_BASE = `${process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''}/storage/v1/o
 
 /** Maps a storage key to a URL. `static/…` keys are versioned demo assets served from /public. */
 export function mediaKeyUrl(key: string): string {
+  if (/^https?:\/\//i.test(key)) return key;
   if (key.startsWith('static/')) return `/${key.slice('static/'.length)}`;
   return `${STORAGE_BASE}/${key.split('/').map(encodeURIComponent).join('/')}`;
 }

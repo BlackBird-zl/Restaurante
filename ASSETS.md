@@ -52,3 +52,18 @@ variantes servidas pelo Storage local sem EXIF, SVG disfarçado de JPEG rejeitad
 | IBM Plex Sans (woff2) | IBM, vendorizada em `public/fonts` | SIL OFL 1.1 |
 | Wordmark e ícones | SVG escritos à mão no código (`Wordmark.tsx`, `Icon.tsx`) | Próprio |
 | QR das mesas | Gerados em runtime pela biblioteca `qrcode` | — |
+
+## Media pass — fotografia real licenciada (28/09/2026)
+
+Para o modo template, os 32 slots do Pátio do Ferro foram preenchidos com **fotografia real do Pexels**, em vez de imagens geradas por IA. A seleção seguiu a Biblioteca de Comandos Visuais V2.1 como direção de curadoria: protagonista concreto, luz plausível, enquadramento legível, acabamento fotográfico natural e ausência de texto/branding falso.
+
+- Fonte: Pexels (fotografia real licenciada para uso gratuito segundo a licença do fornecedor).
+- Entrega: URLs CDN responsivas, com `w=1600`, `w=900` e `w=420` conforme o uso.
+- Proveniência: cada ID e URL fonte está registado em `assets/visual-manifest.json`.
+- Os ficheiros `.placeholder.svg` foram preservados apenas como fallback de desenvolvimento e já não são usados no modo template.
+- A fotografia de cada produto é distinta; não há reutilização da mesma capa entre SKUs.
+- O backend Supabase continua capaz de substituir estes assets por upload próprio quando o template evoluir para produção de um restaurante real.
+
+### Nota de direção visual
+
+A Biblioteca Visual V2.1 recomenda a arquitetura de cinco camadas — BASE, cena/luz, câmara, acabamento e saída/restrições — e, para Food & Bebidas, privilegia sequências como `/foodhero + /windowlight + /closecrop + /photoreal` ou composição editorial equivalente. Nesta versão, essas regras foram usadas como **critério de curadoria** de fotografia real: luz de janela/practical warm, profundidade de campo plausível, texturas não plásticas, ausência de HDR agressivo, escala realista e enquadramentos próprios de restaurante/hospitalidade.
