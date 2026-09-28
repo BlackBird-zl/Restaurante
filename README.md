@@ -1,57 +1,44 @@
-# Pátio do Ferro — V3 final
+# Miolo — V2.1 (enriquecimento fotográfico)
 
-## Conceito
-**A mesma mesa, a noite inteira.**  
-A interface mantém-se estável enquanto a mesa, a luz e os vestígios do serviço mudam.
+Esta versão mantém a direção V2: pilha de camadas, tipografia, paleta, interações e estrutura comercial.
+Abrir `index.html` servindo a pasta (`python3 -m http.server`). O código-fonte está em `src/template.html`; `build.py` gera o `index.html`, expandindo os marcadores `{{PIC …}}` em `<picture>` com AVIF, WebP e `srcset`.
 
-## Abrir
-O pacote é autocontido para o protótipo público. Sirva a pasta por HTTP (não abra diretamente por `file://`, porque os componentes carregam ficheiros relativos).
+## Imagens: onde entrou cada uma
 
-Exemplo:
+| Família | Ficheiro | Uso |
+|---|---|---|
+| A · Wide com espaço para texto (claro) | `hero` / `hero-m` | Hero. No computador, a tipografia fica à esquerda; no telemóvel há um recorte próprio com o hambúrguer inteiro e o título por cima, fora da comida |
+| A · Wide noturno | `cta` / `cta-m` | CTA final antes do rodapé, com o estado aberto/fechado |
+| B · Produto frontal, estúdio | `sc-estudio` | Atmosfera Estúdio e base das 7 faixas da anatomia |
+| C · Janela | `sc-janela` | Atmosfera Janela |
+| D · Balcão com candeeiros | `sc-balcao` | Atmosfera Balcão (madeira, contexto de serviço, 19h30) |
+| D · Noite com bokeh | `sc-noite` | Atmosfera Noite |
+| E · Macros | `lupa-*` (7 recortes) | "Lupa" da anatomia: cada camada mostra o seu grande plano |
+| E · Macros | `perto-drip`, `perto-topo`, `perto-faixa` | Sequência "Ao perto" (horizontal grande, vertical, faixa panorâmica) |
+| F · Cortado | `cortado` | Nova secção "Por dentro" |
+| G · Mãos | `maos` | Nova secção "Montado à mão", antes da Carta |
+| G · Mãos na tábua | `tabua` | Faixa por cima do formulário de encomenda |
+| H · 3/4 sobre papel | `mesa` | Destaque do Clássico na Carta |
 
-```bash
-python -m http.server 8080
-```
+Ordem da Home: hero → manifesto → quatro atmosferas → anatomia com lupa → ao perto → por dentro → montado à mão → carta → encomenda → CTA final → horário.
 
-Depois abra:
+## Problemas encontrados e corrigidos
+- Auditoria: as 9 imagens da V2 (hero com fundo estendido, 4 cenas e 4 recortes com 480 px) foram todas substituídas. Nenhuma ficou no projeto.
+- Cenas repetiam o mesmo tipo de fundo claro; agora Balcão e Noite têm fotografias próprias, de madeira e bokeh, e a paleta do palco acompanha cada uma.
+- Os grandes planos da V2 eram recortes de 480 px. Os novos recortes da lupa têm 700–800 px e aparecem a 300–360 px CSS (cerca de 2× em retina).
+- A primeira atmosfera fazia um pedido de imagem imediato; agora respeita o carregamento lazy.
+- No telemóvel, a sequência "Ao perto" deixava um buraco ao lado da imagem vertical; os números passam para esse espaço.
+- A ordem da sequência editorial no computador deixava espaço vazio; a grelha foi fixada em 3 linhas.
 
-- `Home.dc.html`
-- `Carta.dc.html`
-- `Produto.dc.html?p=polvo-na-brasa`
-- `Ambiente.dc.html`
-- `Reservas.dc.html`
-- `Sobre.dc.html`
-- `Contactos.dc.html`
+## Performance
+- AVIF com WebP como alternativa, 2 larguras por imagem (nativa e cerca de 60 %), `srcset` e `sizes`, `width`/`height` em todas as imagens.
+- Preload só do hero (AVIF, uma versão para computador e outra para telemóvel), com `fetchpriority="high"`.
+- Tudo o resto em `loading="lazy"`. As outras atmosferas e os grandes planos da lupa só são pré-carregados quando a secção se aproxima.
+- Primeira visita a 1440 px: 4 pedidos de imagem (hero, a primeira atmosfera, que o Chromium antecipa, e as 2 miniaturas do manifesto).
+- Nenhuma imagem é ampliada via CSS: medido no browser, a largura mostrada fica sempre abaixo da resolução servida.
 
-## Media
-Os 17 assets finais estão em `assets/media/`:
-
-- T01–T05 — sequência da mesma mesa;
-- S01–S03 — mesma sala em três momentos;
-- P01–P05 — cinco produtos;
-- B01 — bebida;
-- G01 — serviço;
-- M01 — detalhe da junta;
-- E01 — limiar/ambiente.
-
-Todos são WebP 4:3 locais. `patio-media.js` é a fonte de verdade dos caminhos e alt text.
-
-## Regras visuais aplicadas
-- imagens retangulares, sem máscaras orgânicas;
-- canvas mineral `#F1F2EE`;
-- tinta `#252B29`;
-- brasa apenas como sinal `#A13827`;
-- régua/junta a 62,5%;
-- nenhuma imagem depende de texto embutido;
-- sem autoplay, parallax, WebGL ou animação narrativa;
-- Carta e Reservas permanecem acessíveis sem atravessar a sequência da Home;
-- `prefers-reduced-motion` é respeitado.
-
-## Limites intencionais
-- restaurante, contactos e morada são fictícios;
-- reserva é demonstração e não envia dados;
-- áudio opcional de Ambiente não foi incluído porque a especificação proíbe simular uma gravação real;
-- a V2 permanece arquivada em `v2/`.
-
-## Origem de direção
-A implementação segue `uploads/PATIO_DO_FERRO_DIRECAO_CRIATIVA_V3_Claude.md` e a Biblioteca Visual V2.1 usada como metodologia de fotografia: BASE + CENA/LUZ + CÂMARA + ACABAMENTO + SAÍDA/RESTRIÇÕES.
+## Testes
+- Chromium (Playwright) a 1440×900 e 390×844 (2×): sem erros de JavaScript e sem deslocamento horizontal.
+- Os 4 estados das atmosferas, a lupa da anatomia (camada Carne), a carta, a encomenda e o hero AVIF no telemóvel (`hero-m-1072.avif`) foram verificados.
+- A versão de ficheiro único abre por `file://` (só WebP na largura máxima, sem `srcset`).
+- Não testado: fontes do Google (bloqueadas no ambiente de teste), Safari e dispositivos reais.

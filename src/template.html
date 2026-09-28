@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-PT">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Miolo Hamburgueria</title>
-<link rel="preload" as="image" type="image/avif" media="(min-width:901px)" imagesrcset="img/hero-1000.avif 1000w, img/hero-1672.avif 1672w" imagesizes="100vw">
-<link rel="preload" as="image" type="image/avif" media="(max-width:900px)" imagesrcset="img/hero-m-640.avif 640w, img/hero-m-1072.avif 1072w" imagesizes="100vw">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap">
@@ -424,8 +417,7 @@ footer{padding:clamp(56px,8vw,100px) var(--gut) 40px;overflow:hidden}
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
 </style>
-</head>
-<body>
+
 <header class="site" id="hdr">
   <div class="bar">
     <a class="logo" href="#topo" aria-label="Miolo, início"><span class="pilha" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Miolo</a>
@@ -444,7 +436,7 @@ footer{padding:clamp(56px,8vw,100px) var(--gut) 40px;overflow:hidden}
 
 <!-- 1 · HERO -->
 <section class="hero" aria-labelledby="h1">
-  <picture><source media="(max-width:900px)" type="image/avif" srcset="img/hero-m-640.avif 640w, img/hero-m-1072.avif 1072w" sizes="100vw"><source media="(max-width:900px)" type="image/webp" srcset="img/hero-m-640.webp 640w, img/hero-m-1072.webp 1072w" sizes="100vw"><source type="image/avif" srcset="img/hero-1000.avif 1000w, img/hero-1672.avif 1672w" sizes="100vw"><img class="hero-img" src="img/hero-1672.webp" srcset="img/hero-1000.webp 1000w, img/hero-1672.webp 1672w" sizes="100vw" width="1672" height="941" alt="O Clássico de frente sobre uma bancada clara, deslocado para a direita, com brioche de sésamo, alface frisada, tomate, cheddar derretido e carne grelhada." fetchpriority="high" decoding="async"></picture>
+  {{PIC hero | mobile=hero-m | class=hero-img | sizes=100vw | alt=O Clássico de frente sobre uma bancada clara, deslocado para a direita, com brioche de sésamo, alface frisada, tomate, cheddar derretido e carne grelhada. | eager}}
   <div class="hero-copy">
     <h1 id="h1"><span class="l"><span>Sete camadas.</span></span><span class="l"><span>Nenhuma a mais.</span></span></h1>
     <div class="hero-foot">
@@ -509,17 +501,17 @@ footer{padding:clamp(56px,8vw,100px) var(--gut) 40px;overflow:hidden}
 <!-- 5 · AO PERTO -->
 <section class="close" aria-labelledby="h-close">
   <div class="ed">
-    <figure class="a"><picture><source type="image/avif" srcset="img/perto-drip-750.avif 750w, img/perto-drip-1254.avif 1254w" sizes="(max-width:900px) 100vw, 62vw"><img src="img/perto-drip-1254.webp" srcset="img/perto-drip-750.webp 750w, img/perto-drip-1254.webp 1254w" sizes="(max-width:900px) 100vw, 62vw" width="1254" height="700" alt="Cheddar derretido a escorrer pela carne grelhada, com o brioche tostado por baixo." loading="lazy" decoding="async"></picture><span class="cap">Cheddar · última volta</span></figure>
+    <figure class="a">{{PIC perto-drip | sizes=(max-width:900px) 100vw, 62vw | alt=Cheddar derretido a escorrer pela carne grelhada, com o brioche tostado por baixo.}}<span class="cap">Cheddar · última volta</span></figure>
     <div class="t1"><h2 id="h-close">Ao perto.</h2><p>O mesmo Clássico, a um palmo de distância.</p></div>
-    <figure class="b"><picture><source type="image/avif" srcset="img/perto-topo-800.avif 800w" sizes="(max-width:900px) 50vw, 30vw"><img src="img/perto-topo-800.webp" srcset="img/perto-topo-800.webp 800w" sizes="(max-width:900px) 50vw, 30vw" width="800" height="1254" alt="Tampa do brioche coberta de sésamo, maionese e alface frisada com gotas de água." loading="lazy" decoding="async"></picture><span class="cap">Brioche · 12 h</span></figure>
-    <figure class="c"><picture><source type="image/avif" srcset="img/perto-faixa-750.avif 750w, img/perto-faixa-1254.avif 1254w" sizes="(max-width:900px) 100vw, 62vw"><img src="img/perto-faixa-1254.webp" srcset="img/perto-faixa-750.webp 750w, img/perto-faixa-1254.webp 1254w" sizes="(max-width:900px) 100vw, 62vw" width="1254" height="454" alt="Faixa de alface frisada, tomate com gotas e cheddar a começar a derreter." loading="lazy" decoding="async"></picture><span class="cap">Alface · tomate · cheddar</span></figure>
+    <figure class="b">{{PIC perto-topo | sizes=(max-width:900px) 50vw, 30vw | alt=Tampa do brioche coberta de sésamo, maionese e alface frisada com gotas de água.}}<span class="cap">Brioche · 12 h</span></figure>
+    <figure class="c">{{PIC perto-faixa | sizes=(max-width:900px) 100vw, 62vw | alt=Faixa de alface frisada, tomate com gotas e cheddar a começar a derreter.}}<span class="cap">Alface · tomate · cheddar</span></figure>
     <p class="t2"><span>150 g</span> 230 °C <span>4 min</span></p>
   </div>
 </section>
 
 <!-- 5b · POR DENTRO -->
 <section class="inside" aria-labelledby="h-in">
-  <figure><picture><source type="image/avif" srcset="img/cortado-670.avif 670w, img/cortado-1122.avif 1122w" sizes="(max-width:900px) 100vw, 52vw"><img src="img/cortado-1122.webp" srcset="img/cortado-670.webp 670w, img/cortado-1122.webp 1122w" sizes="(max-width:900px) 100vw, 52vw" width="1122" height="1402" alt="O Clássico cortado ao meio: miolo do brioche, maionese, alface, tomate, cheddar e a carne ao ponto, rosada no centro." loading="lazy" decoding="async"></picture></figure>
+  <figure>{{PIC cortado | sizes=(max-width:900px) 100vw, 52vw | alt=O Clássico cortado ao meio: miolo do brioche, maionese, alface, tomate, cheddar e a carne ao ponto, rosada no centro.}}</figure>
   <div>
     <p class="eyebrow" style="color:var(--muted)">Cortado ao meio</p>
     <h2 id="h-in" style="margin-top:14px">Por dentro.</h2>
@@ -541,7 +533,7 @@ footer{padding:clamp(56px,8vw,100px) var(--gut) 40px;overflow:hidden}
     </div>
     <div class="steps" aria-hidden="true"><span class="pilha"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>7 CAMADAS · 4 MIN · 1 ORDEM</div>
   </div>
-  <figure><picture><source type="image/avif" srcset="img/maos-670.avif 670w, img/maos-1122.avif 1122w" sizes="(max-width:900px) 100vw, 55vw"><img src="img/maos-1122.webp" srcset="img/maos-670.webp 670w, img/maos-1122.webp 1122w" sizes="(max-width:900px) 100vw, 55vw" width="1122" height="1402" alt="Duas mãos a pousar o Clássico no balcão, com luz quente de sala ao fundo." loading="lazy" decoding="async"></picture></figure>
+  <figure>{{PIC maos | sizes=(max-width:900px) 100vw, 55vw | alt=Duas mãos a pousar o Clássico no balcão, com luz quente de sala ao fundo.}}</figure>
 </section>
 
 <!-- 6 · CARTA -->
@@ -560,7 +552,7 @@ footer{padding:clamp(56px,8vw,100px) var(--gut) 40px;overflow:hidden}
   <div class="order-in">
     <form id="orderForm" novalidate>
       <h2 id="h-enc">Para levar.</h2>
-      <figure class="order-banner"><picture><source type="image/avif" srcset="img/tabua-670.avif 670w, img/tabua-1122.avif 1122w" sizes="(max-width:900px) 100vw, 55vw"><img src="img/tabua-1122.webp" srcset="img/tabua-670.webp 670w, img/tabua-1122.webp 1122w" sizes="(max-width:900px) 100vw, 55vw" width="1122" height="700" alt="Mãos a acertar o Clássico numa tábua de madeira escura." loading="lazy" decoding="async"></picture></figure>
+      <figure class="order-banner">{{PIC tabua | sizes=(max-width:900px) 100vw, 55vw | alt=Mãos a acertar o Clássico numa tábua de madeira escura.}}</figure>
       <div class="step">
         <div class="step-h"><span class="mono">1</span><h3>O pedido</h3></div>
         <ul class="lines" id="lines"></ul>
@@ -607,7 +599,7 @@ footer{padding:clamp(56px,8vw,100px) var(--gut) 40px;overflow:hidden}
 
 <!-- CTA FINAL -->
 <section class="finale" aria-labelledby="h-fin">
-  <picture><source media="(max-width:900px)" type="image/avif" srcset="img/cta-m-600.avif 600w, img/cta-m-1000.avif 1000w" sizes="100vw"><source media="(max-width:900px)" type="image/webp" srcset="img/cta-m-600.webp 600w, img/cta-m-1000.webp 1000w" sizes="100vw"><source type="image/avif" srcset="img/cta-1000.avif 1000w, img/cta-1672.avif 1672w" sizes="100vw"><img class="finale-img" src="img/cta-1672.webp" srcset="img/cta-1000.webp 1000w, img/cta-1672.webp 1672w" sizes="100vw" width="1672" height="941" alt="O Clássico numa mesa de madeira escura, com luz âmbar e o bokeh da sala ao fundo." loading="lazy" decoding="async"></picture>
+  {{PIC cta | mobile=cta-m | class=finale-img | sizes=100vw | alt=O Clássico numa mesa de madeira escura, com luz âmbar e o bokeh da sala ao fundo.}}
   <div class="tx">
     <p class="live" id="finLive"><b aria-hidden="true"></b><span id="finTxt"></span></p>
     <h2 id="h-fin">O Clássico espera por si.</h2>
@@ -958,6 +950,3 @@ footer{padding:clamp(56px,8vw,100px) var(--gut) 40px;overflow:hidden}
   }));
 })();
 </script>
-
-</body>
-</html>
