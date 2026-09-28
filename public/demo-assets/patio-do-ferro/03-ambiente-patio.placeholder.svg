@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" width="1200" height="1500" role="img" aria-label="Fotografia pendente: Pátio">
+<defs><pattern id="g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0 L0 24" stroke="#252820" stroke-opacity="0.045" stroke-width="1"/></pattern></defs>
+<rect width="1200" height="1500" fill="#E9E4D8"/><rect width="1200" height="1500" fill="url(#g)"/>
+<g fill="none" stroke="#252820" stroke-opacity="0.34" stroke-width="8.266666666666667" stroke-linecap="round" stroke-linejoin="round"><path d="M228 976.8399999999999 L228 411.4 M972 976.8399999999999 L972 411.4"/><ellipse cx="600" cy="828.04" rx="148.8" ry="37.2"/><path d="M600 828.04 L600 976.8399999999999"/></g>
+</svg>

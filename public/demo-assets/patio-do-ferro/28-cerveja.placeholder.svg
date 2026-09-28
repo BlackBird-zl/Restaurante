@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" width="1200" height="1500" role="img" aria-label="Fotografia pendente: Cerveja">
+<defs><pattern id="g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0 L0 24" stroke="#252820" stroke-opacity="0.045" stroke-width="1"/></pattern></defs>
+<rect width="1200" height="1500" fill="#E6E2D6"/><rect width="1200" height="1500" fill="url(#g)"/>
+<g fill="none" stroke="#252820" stroke-opacity="0.34" stroke-width="8.266666666666667" stroke-linecap="round" stroke-linejoin="round"><path d="M480.96 485.8 L510.72 932.2 L689.28 932.2 L719.04 485.8"/><path d="M488.4 619.72 L711.6 619.72"/></g>
+</svg>

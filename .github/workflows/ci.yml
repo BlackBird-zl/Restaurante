@@ -1,0 +1,85 @@
+# CI: static checks + unit tests + build on every push; database, integration and E2E suites against a
+# disposable Supabase stack (Docker via the Supabase CLI). Secrets below are throwaway CI values, not production.
+name: ci
+on: [push, pull_request]
+permissions: { contents: read }
+concurrency: { group: ci-${{ github.ref }}, cancel-in-progress: true }
+
+env:
+  APP_ENV: test
+  APP_BASE_DOMAIN: localhost
+  APP_STAFF_HOST: localhost:3000
+  APP_PREVIEW_HOSTS: localhost:3000
+  APP_URL_SCHEME: http
+  APP_PUBLIC_PORT: '3000'
+
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version-file: .node-version, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm secrets:scan
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm test:unit
+      - name: build
+        run: pnpm build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ci-placeholder
+          SUPABASE_SERVICE_ROLE_KEY: ci-placeholder
+          GUEST_PIN_PEPPER: Y2ktb25seS1ub3Qtc2VjcmV0LWNpLW9ubHktbm90LXNlY3I=
+          QR_ENCRYPTION_KEY: Y2ktb25seS1ub3Qtc2VjcmV0LWNpLW9ubHktbm90LXNlY3I=
+          QR_CONTEXT_SECRET: Y2ktb25seS1ub3Qtc2VjcmV0LWNpLW9ubHktbm90LXNlY3I=
+          RATE_LIMIT_SALT: Y2ktb25seS1ub3Qtc2VjcmV0LWNpLW9ubHktbm90LXNlY3I=
+
+  stack:
+    runs-on: ubuntu-latest
+    needs: static
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version-file: .node-version, cache: pnpm }
+      - uses: supabase/setup-cli@v1
+        with: { version: latest }
+      - run: pnpm install --frozen-lockfile
+      - run: supabase start -x studio,imgproxy,edge-runtime,logflare,vector,supavisor
+      - name: write .env.local from the local stack
+        run: |
+          supabase status -o env > /tmp/sb.env
+          . /tmp/sb.env
+          k() { openssl rand -base64 32; }
+          cat > .env.local <<ENV
+          APP_ENV=test
+          NEXT_PUBLIC_SUPABASE_URL=$API_URL
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=$ANON_KEY
+          SUPABASE_SERVICE_ROLE_KEY=$SERVICE_ROLE_KEY
+          SUPABASE_DB_URL=$DB_URL
+          APP_BASE_DOMAIN=localhost
+          APP_STAFF_HOST=localhost:3000
+          APP_PREVIEW_HOSTS=localhost:3000,127.0.0.1:3000
+          APP_URL_SCHEME=http
+          APP_PUBLIC_PORT=3000
+          GUEST_PIN_PEPPER=$(k)
+          QR_ENCRYPTION_KEY=$(k)
+          QR_ENCRYPTION_KEY_VERSION=1
+          QR_CONTEXT_SECRET=$(k)
+          RATE_LIMIT_SALT=$(k)
+          DEMO_SEED_PASSWORD=Ci-$(openssl rand -hex 6)
+          ENV
+      - run: pnpm db:migrate
+      - run: pnpm reset:demo --confirm=reset-demo
+      - run: pnpm test:db
+      - run: pnpm build
+      - run: (pnpm start -p 3000 > /tmp/app.log 2>&1 &) && npx wait-on -t 60000 http://localhost:3000/entrar
+      - run: pnpm test:integration
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: QA_NO_WEBSERVER=1 pnpm test:e2e
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with: { name: e2e-results, path: test-results/, retention-days: 7 }

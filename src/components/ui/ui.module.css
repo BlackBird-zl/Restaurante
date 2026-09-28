@@ -1,0 +1,81 @@
+/* Accessible primitives shared by table, operation and admin surfaces. */
+.btn {
+  --btn-bg: var(--n-0); --btn-fg: var(--n-900); --btn-bd: var(--n-300);
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 18px; border: 1px solid var(--btn-bd); border-radius: var(--ui-radius, 8px);
+  background: var(--btn-bg); color: var(--btn-fg); font-weight: 600; font-size: 0.975rem; line-height: 1.1;
+  text-decoration: none; cursor: pointer; white-space: nowrap; user-select: none;
+  transition: background 120ms ease, border-color 120ms ease, transform 80ms ease;
+}
+.btn:hover { background: color-mix(in srgb, var(--btn-bg) 92%, var(--n-900)); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled], .btn[aria-disabled='true'] { opacity: 0.55; cursor: not-allowed; transform: none; }
+.primary { --btn-bg: var(--ui-accent, #23211d); --btn-fg: var(--ui-on-accent, #fff); --btn-bd: var(--ui-accent, #23211d); }
+.secondary { --btn-bg: transparent; --btn-fg: currentColor; --btn-bd: currentColor; }
+.ghost { --btn-bg: transparent; --btn-fg: currentColor; --btn-bd: transparent; }
+.danger { --btn-bg: var(--danger); --btn-fg: #fff; --btn-bd: var(--danger); }
+.success { --btn-bg: var(--ok); --btn-fg: #fff; --btn-bd: var(--ok); }
+.lg { min-height: 48px; padding: 0 22px; font-size: 1.02rem; }
+.xl { min-height: 56px; padding: 0 24px; font-size: 1.1rem; }
+.block { width: 100%; }
+.spinner { width: 16px; height: 16px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: spin 700ms linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.field { display: grid; gap: 6px; }
+.label { font-weight: 600; font-size: 0.925rem; }
+.hint { font-size: 0.85rem; color: var(--ui-muted, var(--n-600)); }
+.error { font-size: 0.875rem; color: var(--danger); font-weight: 500; display: flex; gap: 6px; align-items: flex-start; }
+.input {
+  min-height: 48px; padding: 10px 12px; border: 1px solid var(--ui-border, var(--n-300)); border-radius: var(--ui-radius, 8px);
+  background: var(--ui-input-bg, #fff); color: inherit; width: 100%;
+}
+.input:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; }
+.input[aria-invalid='true'] { border-color: var(--danger); }
+textarea.input { min-height: 96px; resize: vertical; line-height: 1.45; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px 3px 8px; border-radius: 999px;
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.01em; white-space: nowrap; line-height: 1.5;
+  color: var(--b-fg); background: var(--b-bg); border: 1px solid color-mix(in srgb, var(--b-fg) 22%, transparent);
+}
+.badge svg { flex: none; }
+
+.overlay { position: fixed; inset: 0; background: rgb(15 14 12 / 0.46); z-index: 60; }
+.sheet {
+  position: fixed; z-index: 61; left: 0; right: 0; bottom: 0; max-height: 88dvh; overflow: auto;
+  background: var(--ui-surface, #fff); color: var(--ui-text, var(--n-900)); border-radius: 16px 16px 0 0;
+  padding: 20px 20px calc(20px + var(--safe-bottom)); box-shadow: var(--shadow-2);
+}
+.dialog {
+  position: fixed; z-index: 61; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(560px, calc(100vw - 32px));
+  max-height: calc(100dvh - 48px); overflow: auto; background: var(--ui-surface, #fff); color: var(--ui-text, var(--n-900));
+  border-radius: 14px; padding: 24px; box-shadow: var(--shadow-2);
+}
+@media (min-width: 768px) {
+  .sheet { left: 50%; right: auto; bottom: auto; top: 50%; transform: translate(-50%, -50%); width: min(520px, calc(100vw - 32px)); border-radius: 14px; padding: 24px; }
+}
+.dialogHeader { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+.dialogTitle { font-size: 1.25rem; font-weight: 600; font-family: var(--font-sans); }
+.dialogDesc { color: var(--ui-muted, var(--n-600)); margin-top: 4px; font-size: 0.95rem; }
+.closeBtn { min-width: 44px; min-height: 44px; display: grid; place-items: center; border: 0; background: transparent; border-radius: 8px; cursor: pointer; }
+.dialogActions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+
+.empty { display: grid; justify-items: center; text-align: center; gap: 8px; padding: 36px 16px; color: var(--ui-muted, var(--n-600)); }
+.emptyTitle { color: var(--ui-text, var(--n-800)); font-weight: 600; font-size: 1.05rem; }
+
+.notice { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 10px; font-size: 0.95rem; border: 1px solid; }
+.notice svg { flex: none; margin-top: 2px; }
+.nInfo { background: var(--info-bg); color: #173a6b; border-color: #bfd3ef; }
+.nWarn { background: var(--warn-bg); color: #5c3700; border-color: #f0d59f; }
+.nDanger { background: var(--danger-bg); color: #7a1911; border-color: #f2c1bb; }
+.nOk { background: var(--ok-bg); color: #0f4d2a; border-color: #b8e0c6; }
+
+.conn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 500; }
+.connDot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
+.connWarn .connDot { background: var(--warn); }
+.connBad .connDot { background: var(--danger); }
+.connBanner {
+  display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 0.925rem; font-weight: 500;
+  background: var(--danger-bg); color: #7a1911; border-bottom: 1px solid #f2c1bb;
+}
+.connBannerWarn { background: var(--warn-bg); color: #5c3700; border-color: #f0d59f; }

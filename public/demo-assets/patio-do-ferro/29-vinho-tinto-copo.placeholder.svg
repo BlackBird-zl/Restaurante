@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" width="1200" height="1500" role="img" aria-label="Fotografia pendente: Vinho tinto a copo">
+<defs><pattern id="g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0 L0 24" stroke="#252820" stroke-opacity="0.045" stroke-width="1"/></pattern></defs>
+<rect width="1200" height="1500" fill="#E6E2D6"/><rect width="1200" height="1500" fill="url(#g)"/>
+<g fill="none" stroke="#252820" stroke-opacity="0.34" stroke-width="8.266666666666667" stroke-linecap="round" stroke-linejoin="round"><path d="M495.84 441.16 Q 480.96 694.12 600 709 Q 719.04 694.12 704.16 441.16 Z"/><path d="M600 709 L600 932.2 M525.6 932.2 L674.4 932.2"/></g>
+</svg>

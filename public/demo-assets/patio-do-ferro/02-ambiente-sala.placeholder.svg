@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Fotografia pendente: Sala">
+<defs><pattern id="g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0 L0 24" stroke="#252820" stroke-opacity="0.045" stroke-width="1"/></pattern></defs>
+<rect width="1600" height="900" fill="#E9E4D8"/><rect width="1600" height="900" fill="url(#g)"/>
+<g fill="none" stroke="#252820" stroke-opacity="0.34" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round"><rect x="454.04" y="229.27999999999997" width="145.08" height="256.68"/><path d="M688.4 497.12 L855.8 497.12 M710.72 497.12 L710.72 608.72 M833.48 497.12 L833.48 608.72 M933.92 497.12 L1101.32 497.12 M956.24 497.12 L956.24 608.72 M1079 497.12 L1079 608.72"/></g>
+</svg>
